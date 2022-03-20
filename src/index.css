@@ -1,0 +1,41 @@
+@import "~normalize.css";
+:root {
+    --main-color: #FFE44D;
+    --main-darker: #FFAA0D;
+    --main-lighter:#FFF5C0;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+	font-family: "Nunito", "Arial", "Helvetica", sans-serif;
+}
+
+.container {
+    max-width: 992px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.content {
+    padding: 20px 0;
+}
+
+.content__sort {
+	margin-bottom: 40px;
+}
+
+.result {
+	font-size: 24px;
+}
