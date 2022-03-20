@@ -8,7 +8,7 @@ const click = () => {
 
 export const Info = () => {
   return (
-    <form className={s.search}>
+    <form className={s.info}>
       <div>
         <h1>Welcome to Our Image Board!</h1>
         <p>We're stoked that you're here. 🥳</p>
