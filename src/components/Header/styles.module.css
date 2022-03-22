@@ -10,3 +10,11 @@
     justify-content: space-between;
     gap: 80px;
 }
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: 600;
+    align-items: flex-end;
+}

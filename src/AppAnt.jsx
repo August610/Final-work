@@ -5,21 +5,33 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Logo } from "./components/Logo";
 import { Info } from "./components/Info";
+import api from "./utils/Api";
 
 
 export const AppAnt = () => {
-  const [cards] = useState(postData);
-  
+  const [cards, setCards] = useState([]);
+  const [currentUser, setCurrentUser] = useState({})
+
   const reload = () => {
     window.location.reload();
   }
+
+  useEffect(() => {
+    Promise.all([api.getPostsList(), api.getUserInfo()])
+      .then(([productData, userData]) => {
+        setCurrentUser(userData)
+        setCards(productData);
+      })
+  }, [])
+
+
   return (
     <>
-      <Header>
-        <Logo onClick={reload}/>
+      <Header user={currentUser}>
+        <Logo onClick={reload} />
       </Header>
       <main className="content container">
-      <Info/>
+        <Info />
         <Cards goods={cards} />
       </main>
       <Footer>© You!</Footer>

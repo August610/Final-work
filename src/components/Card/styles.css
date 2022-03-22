@@ -41,18 +41,6 @@
 
 }
 
-.card__price {
-	font-size: 20px;
-	line-height: 24px;
-	font-weight: 800;
-	display: block;
-	margin-bottom: 6px;
-}
-
-.card__price_type_discount {
-	color: #F44336;
-}
-
 .card__wight {
 	font-size: 12px;
 	line-height: 14px;
@@ -66,16 +54,6 @@
 	line-height: 1.25;
 }
 
-.card__discount {
-	padding: 2px 8px;
-	font-weight: 800;
-	font-size: 16px;
-	line-height: 20px;
-	color: #FFFFFF;
-	background-color: #F44336;
-	border-radius: 20px;
-}
-
 .card__sticky {
 	position: absolute;
 	padding: 10px;
@@ -86,8 +64,8 @@
 	left: 0;
 }
 
-.card__sticky_type_top-right {
-	top: 0;
+.card__sticky_type_bottom-right {
+	bottom: 0;
 	right: 0;
 }
 
