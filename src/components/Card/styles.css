@@ -59,13 +59,13 @@
 	padding: 10px;
 }
 
-.card__sticky_type_top-left {
-	top: 0;
+.card__sticky_type_bottom-left {
+	bottom: -5px;
 	left: 0;
 }
 
 .card__sticky_type_bottom-right {
-	bottom: 0;
+	bottom: -5px;
 	right: 0;
 }
 
