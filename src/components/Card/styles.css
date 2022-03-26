@@ -77,6 +77,10 @@
 	display: flex;
 }
 
+.card__favorite-icon_active {
+	fill: #000000;
+}
+
 .card__cart {
 	margin-top: auto;
 }

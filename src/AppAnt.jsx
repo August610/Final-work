@@ -24,15 +24,32 @@ export const AppAnt = () => {
       })
   }, [])
 
+  function handleUpdateUser(userUpdate) {
+    api.setUserInfo(userUpdate).then((newUserData) => { setCurrentUser(newUserData) }
+    )
+  }
+
+  function handleProductLike({_id, likes}) {
+    const isLiked = likes.some(id=> id === currentUser._id)
+    api.changeLikeStatus(_id, isLiked)
+      .then((newCard)=> {
+        const newCardsState = cards.map(c => { 
+          return c._id === newCard._id ? newCard : c 
+        })
+
+        setCards(newCardsState);
+      })
+}
+
 
   return (
     <>
-      <Header user={currentUser}>
+      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <Logo onClick={reload} />
       </Header>
       <main className="content container">
         <Info />
-        <Cards goods={cards} />
+        <Cards goods={cards} onProductLike={handleProductLike} currentUser={currentUser}/>
       </main>
       <Footer>© You!</Footer>
     </>
