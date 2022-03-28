@@ -3,13 +3,13 @@ import s from "./styles.module.css";
 
 import { Card } from "../Card";
 
-export const Cards = ({goods, onProductLike, currentUser}) => {
+export const Cards = ({goods, onProductLike, onDeletePost}) => {
   
   return (
     <div className={s.cards}>
       {goods.map( (dataItem,index) => {
         
-        return (<Card key={`${index}`} {...dataItem} onProductLike={onProductLike} currentUser={currentUser}/>)
+        return (<Card key={`${index}`} {...dataItem} onProductLike={onProductLike} />)
       })}
     </div>
   );

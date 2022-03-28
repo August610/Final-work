@@ -78,13 +78,16 @@
 }
 
 .card__favorite-icon_active {
-	fill: #000000;
+	fill: #ff0000;
 }
 
 .card__cart {
 	margin-top: auto;
 }
 
+.post_info {
+	padding-top: 5px;
+}
 
 
 .card__link {

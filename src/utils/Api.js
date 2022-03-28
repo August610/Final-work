@@ -33,6 +33,16 @@ class Api {
         }).then(onResponce)
     }
 
+    deletePost(postId){
+        return fetch(`${this._baseUrl}/posts/${postId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: this._token,
+            },
+        }).then(onResponce)
+    }
+    
+
     setUserInfo(userData){
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",
@@ -45,8 +55,8 @@ class Api {
         }).then(onResponce)
     }
 
-    changeLikeStatus(productId, isLike){
-        return fetch(`${this._baseUrl}/posts/likes/${productId}`, {
+    changeLikeStatus(postId, isLike){
+        return fetch(`${this._baseUrl}/posts/likes/${postId}`, {
             method: isLike ? "DELETE" : "PUT",
             headers: {
                 authorization: this._token,
