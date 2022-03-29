@@ -5,13 +5,15 @@ import { Footer } from "./components/Footer";
 import { Logo } from "./components/Logo";
 import { Info } from "./components/Info";
 import api from "./utils/Api";
+import { Pagination } from 'antd';
 import { CurrentUserContext } from "./context/currentUserContext";
 import { DeletePostContext } from "./context/deletePostContext";
 
 
 export const AppAnt = () => {
   const [cards, setCards] = useState([]);
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState({});
+  
 
   const reload = () => {
     window.location.reload();
@@ -60,6 +62,7 @@ export const AppAnt = () => {
         <main className="content container">
           <Info />
           <Cards goods={cards} onProductLike={handleProductLike} />
+          <Pagination defaultCurrent={1} total={50} />
         </main>
         <Footer>© You!</Footer>
       </CurrentUserContext.Provider>

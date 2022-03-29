@@ -27,7 +27,7 @@ export const Card = ({ onProductLike, _id, likes, title, image, tags, author, te
         <div className="card">
             <a href="#" className="card__link">
                 <p className="card__name"><b>{title}</b></p>
-                <img src={image} className="card__image" />
+                <img src={image} className="card__image" alt="img"/>
             </a>
             <div className="post_info">
                 <h2>Tags: {tags}</h2>
