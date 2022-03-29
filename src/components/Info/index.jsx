@@ -2,7 +2,8 @@ import React from "react";
 import s from "./styles.module.css";
 
 
-const click = () => {
+const click = (e) => {
+  e.preventDefault();
   alert("Есть контакт");
 }
 

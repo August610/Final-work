@@ -18,7 +18,8 @@ export const Card = ({ onProductLike, _id, likes, title, image, tags, author, te
     }
     const isLiked = likes.some(id => id === currentUser._id);
 
-    function handleLikeClick() {
+    function handleLikeClick(e) {
+        e.preventDefault();
         onProductLike({ _id, likes })
     }
 

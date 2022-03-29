@@ -38,9 +38,6 @@ export const AppAnt = () => {
       .catch(alert("Ошибка доступа"))
   }
 
-
-
-
   function handleProductLike({ _id, likes }) {
     const isLiked = likes.some(id => id === currentUser._id)
     api.changeLikeStatus(_id, isLiked)
@@ -61,12 +58,11 @@ export const AppAnt = () => {
           <Logo onClick={reload} />
         </Header>
         <main className="content container">
-          <Info/>
-          <Cards goods={cards} onProductLike={handleProductLike}  />
+          <Info />
+          <Cards goods={cards} onProductLike={handleProductLike} />
         </main>
         <Footer>© You!</Footer>
       </CurrentUserContext.Provider>
     </DeletePostContext.Provider>
-
   );
 };
