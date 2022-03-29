@@ -5,6 +5,7 @@ import { ReactComponent as Delete } from './img/delete.svg'
 import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
 import { DeletePostContext } from "../../context/deletePostContext";
+import { Link } from "react-router-dom";
 
 export const Card = ({ onPostLike, _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
 
@@ -24,10 +25,11 @@ export const Card = ({ onPostLike, _id, likes, title, image, tags, author, text,
     }
 
     return (
+        <Link to={`/posts/${_id}`} className="card__link">
         <div className="card">
             <a href="#" className="card__link">
                 <p className="card__name"><b>{title}</b></p>
-                <img src={image} className="card__image" alt="img"/>
+                {{image} && <img src={image} className="card__image" alt="img"/>}
             </a>
             <div className="post_info">
                 <h2>Tags: {tags}</h2>
@@ -48,5 +50,6 @@ export const Card = ({ onPostLike, _id, likes, title, image, tags, author, text,
                 </button>
             </div>
         </div>
+        </Link>
     );
 };
