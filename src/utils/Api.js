@@ -42,6 +42,13 @@ class Api {
         }).then(onResponce)
     }
     
+    getPostById(postID){
+        return fetch(`${this._baseUrl}/posts/${postID}`, {
+            headers: {
+                authorization: this._token,
+            },
+        }).then(onResponce)
+    }
 
     setUserInfo(userData){
         return fetch(`${this._baseUrl}/users/me`, {
