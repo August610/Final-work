@@ -9,6 +9,7 @@ import { Pagination } from 'antd';
 import { CurrentUserContext } from "./context/currentUserContext";
 import { DeletePostContext } from "./context/deletePostContext";
 
+const POST_ID = "622bda5c06c7d323b8ae4617";
 
 export const AppAnt = () => {
   const [cards, setCards] = useState([]);
@@ -21,9 +22,9 @@ export const AppAnt = () => {
 
   useEffect(() => {
     Promise.all([api.getPostsList(), api.getUserInfo()])
-      .then(([productData, userData]) => {
+      .then(([postData, userData]) => {
         setCurrentUser(userData)
-        setCards(productData);
+        setCards(postData);
       })
   }, [])
 
@@ -40,7 +41,7 @@ export const AppAnt = () => {
       .catch(alert("Ошибка доступа"))
   }
 
-  function handleProductLike({ _id, likes }) {
+  function handlePostLike({ _id, likes }) {
     const isLiked = likes.some(id => id === currentUser._id)
     api.changeLikeStatus(_id, isLiked)
       .then((newCard) => {
@@ -61,7 +62,7 @@ export const AppAnt = () => {
         </Header>
         <main className="content container">
           <Info />
-          <Cards goods={cards} onProductLike={handleProductLike} />
+          <Cards goods={cards} onPostLike={handlePostLike} />
           <Pagination defaultCurrent={1} total={50} />
         </main>
         <Footer>© You!</Footer>

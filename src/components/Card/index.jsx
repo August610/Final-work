@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
 import { DeletePostContext } from "../../context/deletePostContext";
 
-export const Card = ({ onProductLike, _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
+export const Card = ({ onPostLike, _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
 
     const currentUser = useContext(CurrentUserContext);
     const onDeletePost = useContext(DeletePostContext)
@@ -20,7 +20,7 @@ export const Card = ({ onProductLike, _id, likes, title, image, tags, author, te
 
     function handleLikeClick(e) {
         e.preventDefault();
-        onProductLike({ _id, likes })
+        onPostLike({ _id, likes })
     }
 
     return (
