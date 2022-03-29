@@ -8,8 +8,11 @@ import api from "./utils/Api";
 import { Pagination } from 'antd';
 import { CurrentUserContext } from "./context/currentUserContext";
 import { DeletePostContext } from "./context/deletePostContext";
+import { Route, Routes } from "react-router-dom";
+import { AllPosts } from "./pages/AllPostsPage/AllPostsPage";
+import { PagePost } from "./pages/PostPage/PostPage";
 
-const POST_ID = "622bda5c06c7d323b8ae4617";
+// const POST_ID = "622bda5c06c7d323b8ae4617";
 
 export const AppAnt = () => {
   const [cards, setCards] = useState([]);
@@ -61,8 +64,28 @@ export const AppAnt = () => {
           <Logo onClick={reload} />
         </Header>
         <main className="content container">
-          <Info />
-          <Cards goods={cards} onPostLike={handlePostLike} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <AllPosts
+                  currentUser={currentUser}
+                  cards={cards}
+                  handlePostLike={handlePostLike}
+                />
+              }
+            />
+            <Route
+              path="/posts/:postID"
+              element={
+                <PagePost
+                  currentUser={currentUser}            
+                  handlePostLike={handlePostLike}
+                />
+              }
+            />
+            <Route path="*" element={<h1>Страница не найдена</h1>} />
+          </Routes>
           <Pagination defaultCurrent={1} total={50} />
         </main>
         <Footer>© You!</Footer>
