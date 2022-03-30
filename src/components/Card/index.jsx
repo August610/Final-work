@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
 import { DeletePostContext } from "../../context/deletePostContext";
 import { Link } from "react-router-dom";
+import { Likes } from "../Likes/likes";
 
 export const Card = ({ onPostLike, _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
 
@@ -24,12 +25,12 @@ export const Card = ({ onPostLike, _id, likes, title, image, tags, author, text,
         onPostLike({ _id, likes })
     }
 
-    // console.log(likes);
     let count = 0;
-    likes.forEach(e => {
+    likes.forEach(element => {
         count++;
     });
-    // console.log(count);
+        
+
     return (
         <Link to={`/posts/${_id}`} className="card__link">
             <div className="card">

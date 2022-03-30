@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
 import { DeletePostContext } from "../../context/deletePostContext";
 import { useNavigate } from "react-router-dom";
+import { Likes } from "../Likes/likes";
 
 export const Post = ({ onPostLike, _id, likes, title, image, tags, author, avatar, text, created_at, updated_at }) => {
     const currentUser = useContext(CurrentUserContext);
@@ -17,7 +18,7 @@ export const Post = ({ onPostLike, _id, likes, title, image, tags, author, avata
         e.preventDefault();
         onDeletePost({ _id });
     }
-    // const isLiked = likes.some(id => id === currentUser._id);
+    const isLiked = likes && likes.some(id => id === currentUser._id);
 
     function handleLikeClick(e) {
         e.preventDefault();
@@ -25,37 +26,30 @@ export const Post = ({ onPostLike, _id, likes, title, image, tags, author, avata
     }
 
     return (
-        // <div className="card">
-        //     <a href="#" className="card__link">
-        //         <p className="card__name"><b>{title}</b></p>
-        //         <img src={image} className="card__image" alt="img"/>
-        //     </a>
-        //     <div className="post_info">
-        //         <h2>Tags: {tags}</h2>
-        //         <span><img src={author.avatar} width="40px" heigth="40px" /></span>
-        //         <span>{author.email}</span>
-        //         <p>{text}</p>
-        //         <p>create: {created_at}</p>
-        //         <p>updated: {updated_at}</p>
-        //     </div>
-        //     <div className="card__sticky card__sticky_type_bottom-left">
-        //         <button className="card__favorite">
-        //             <Delete onClick={handleDeletePost} />
-        //         </button>
-        //     </div>
-        //     <div className="card__sticky card__sticky_type_bottom-right">
-        //         <button className="card__favorite" onClick={handleLikeClick}>
-        //             <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLiked })} />
-        //         </button>
-        //     </div>
-        // </div>
         <>
-            <a href="#" className="button-back" onClick={() => navigate(-1)}>Назад</a>
-            <h1 className="card__name">{title}</h1>
-            <p>{text}</p>
+            <div className="card">
+                <a href="#" className="button-back" onClick={() => navigate(-1)}>back</a>
+                <h1 className="card__name"><b>{title}</b></h1>
+                <p>{text}</p>
+                <span><img src={image} /></span>
+                {/* <p>{author}</p> */}
+                {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
+                {/* <span>{author}</span> */}
+                <div className="icons">
+                    <div className="card__sticky card__sticky_type_bottom-left">
+                        <button className="card__favorite">
+                            <Delete onClick={handleDeletePost} />
+                        </button>
+                    </div>
+                    <div className="card__sticky card__sticky_type_bottom-right">
+                        <button className="card__favorite" onClick={handleLikeClick}>
+                            {/* <span className="likes">{count}</span> */}
+                            <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLiked })} />
+                        </button>
+                    </div>
+                </div>
 
-            <span><img src={avatar} width="40px" heigth="40px" /></span>
-            {/* <span>{author}</span> */}
+            </div>
         </>
     );
 };
