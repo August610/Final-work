@@ -1,12 +1,13 @@
 @import "~normalize.css";
-:root {
-    --main-color: #FFE44D;
-    --main-darker: #FFAA0D;
-    --main-lighter:#FFF5C0;
-}
 
 * {
     box-sizing: inherit;
+}
+
+#root {
+	display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 html {
@@ -15,6 +16,7 @@ html {
 
 body {
 	font-family: "Nunito", "Arial", "Helvetica", sans-serif;
+    height: 100%;
 }
 
 .container {
@@ -30,6 +32,7 @@ img {
 
 .content {
     padding: 20px 0;
+    flex: 1;
 }
 
 .content__sort {

@@ -5,27 +5,15 @@
 	max-width: 180px;
 }
 
-
 .footer {
 	width: 100%;
 	background-color: rgb(219, 215, 215);
 	padding-top: 40px;
 	padding-bottom: 88px;
-}
-
-.footer__wrapper {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 10px;
-}
-
-
-
-.footer__col {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+	height: 40px;
+	/* min-height: 100%;
+	position: absolute;
+	bottom: 0; */
 }
 
 .menu-bottom {

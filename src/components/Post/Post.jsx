@@ -24,6 +24,7 @@ export const Post = ({ onPostLike, _id, likes, title, image, tags, author, text,
         e.preventDefault();
         onPostLike({ _id, likes })
     }
+    console.log({author});
 
     return (
         // <div className="card">
@@ -51,8 +52,10 @@ export const Post = ({ onPostLike, _id, likes, title, image, tags, author, text,
         //     </div>
         // </div>
         <>
-        <a href="#" className="button-back" onClick={() => navigate(-1)}>Назад</a>
-            <h1>afasf</h1>
+            <a href="#" className="button-back" onClick={() => navigate(-1)}>Назад</a>
+            <p className="card__name"><b>{title}</b></p>
+            {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span>
+            <span>{author.email}</span> */}
         </>
     );
 };

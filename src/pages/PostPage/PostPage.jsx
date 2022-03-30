@@ -8,7 +8,6 @@ export const PagePost = ({currentUser, isLoading, handlePostLike}) => {
   const { postID } = useParams();
 ;
 
-
   useEffect(()=> {
     api.getPostById(postID)
       .then((postData)=> {
