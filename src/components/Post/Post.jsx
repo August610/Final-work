@@ -8,7 +8,6 @@ import { DeletePostContext } from "../../context/deletePostContext";
 import { useNavigate } from "react-router-dom";
 
 export const Post = ({ onPostLike, _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
-
     const currentUser = useContext(CurrentUserContext);
     const onDeletePost = useContext(DeletePostContext);
     const navigate = useNavigate();
@@ -24,7 +23,6 @@ export const Post = ({ onPostLike, _id, likes, title, image, tags, author, text,
         e.preventDefault();
         onPostLike({ _id, likes })
     }
-    console.log({author});
 
     return (
         // <div className="card">
@@ -53,9 +51,11 @@ export const Post = ({ onPostLike, _id, likes, title, image, tags, author, text,
         // </div>
         <>
             <a href="#" className="button-back" onClick={() => navigate(-1)}>Назад</a>
-            <p className="card__name"><b>{title}</b></p>
-            {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span>
-            <span>{author.email}</span> */}
+            <h1 className="card__name">{title}</h1>
+            <p>{text}</p>
+
+            {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
+            {/* <span>{author}</span> */}
         </>
     );
 };

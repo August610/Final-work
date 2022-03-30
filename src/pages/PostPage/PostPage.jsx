@@ -3,8 +3,8 @@ import api from "../../utils/Api";
 import { useParams } from "react-router-dom";
 import { Post } from '../../components/Post/Post';
 
-export const PagePost = ({currentUser, isLoading, handlePostLike}) => {
-  const [post, setpost] = useState([]);
+export const PagePost = ({currentUser, handlePostLike}) => {
+  const [posts, setPost] = useState([]);
   const { postID } = useParams();
 ;
 
@@ -12,14 +12,13 @@ export const PagePost = ({currentUser, isLoading, handlePostLike}) => {
     api.getPostById(postID)
       .then((postData)=> {
         console.log(postData);
-        setpost(postData);
+        setPost(postData);
       })
   },[])
 
   return (
     <>
-          {/* {isLoading  && <Spinner/> } */}
-          <Post {...post} currentUser={currentUser} onPostLike={handlePostLike}/>  
+          <Post {...posts} currentUser={currentUser} onPostLike={handlePostLike}/>  
     </>
   );
 };
