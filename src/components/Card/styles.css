@@ -81,6 +81,12 @@
 	fill: #ff0000;
 }
 
+.likes{
+	position: relative;
+	bottom: -5px;
+	right: 5px;
+}
+
 .card__cart {
 	margin-top: auto;
 }
