@@ -6,58 +6,67 @@ import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
 import { DeletePostContext } from "../../context/deletePostContext";
 import { Link } from "react-router-dom";
-import { Likes } from "../Likes/likes";
+import { isLiked } from "../../utils/utils";
+import { AppContext } from "../../context/appContext";
 
-export const Card = ({ onPostLike, _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
+export const Card = ({ _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
 
     const currentUser = useContext(CurrentUserContext);
-    const onDeletePost = useContext(DeletePostContext)
+    const onDeletePost = useContext(DeletePostContext);
+    const { handlePostLike } = useContext(AppContext);
 
 
     function handleDeletePost(e) {
         e.preventDefault();
-        onDeletePost({ _id });
+        const confirmm = confirm("Удалить пост?")
+            if(confirmm == true){
+                onDeletePost({ _id });
+            }
     }
-    const isLiked = likes.some(id => id === currentUser._id);
+    const isLike = isLiked(likes, currentUser?._id);
 
     function handleLikeClick(e) {
         e.preventDefault();
-        onPostLike({ _id, likes })
+        handlePostLike( _id, isLike )
     }
 
-    let count = 0;
-    likes.forEach(element => {
-        count++;
-    });
-        
+    
+    function checkUserPost() {
+        const userPost = false;
+        if(author.email === "sosnin.aleksande@mail.ru"){
+            userPost = true;
+        }
+        return userPost
+    }
 
     return (
-        <Link to={`/posts/${_id}`} className="card__link">
-            <div className="card">
-                <a href="#" className="card__link">
+
+        <div className="card">
+            <Link to={`/posts/${_id}`} className="card__link">
+                <a href="/" className="card__link">
                     <p className="card__name"><b>{title}</b></p>
                     {{ image } && <img src={image} className="card__image" alt="img" />}
                 </a>
-                <div className="post_info">
-                    <h2>Tags: {tags}</h2>
-                    <span><img src={author.avatar} width="40px" heigth="40px" /></span>
-                    <span>{author.email}</span>
-                    <p>{text}</p>
-                    <p>create: {created_at}</p>
-                    <p>updated: {updated_at}</p>
-                </div>
-                <div className="card__sticky card__sticky_type_bottom-left">
-                    <button className="card__favorite">
-                        <Delete onClick={handleDeletePost} />
-                    </button>
-                </div>
-                <div className="card__sticky card__sticky_type_bottom-right">
-                    <button className="card__favorite" onClick={handleLikeClick}>
-                        <span className="likes">{count}</span>
-                        <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLiked })} />
-                    </button>
-                </div>
+            </Link>
+            <div className="post_info">
+                <h2><b>Tags</b>: {tags}</h2>
+                {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
+                <b>Author</b>: <span>{author.email}</span>
+                <p>{text}</p>
+                <p><b>create</b>: {created_at}</p>
+                <p><b>updated</b>: {updated_at}</p>
             </div>
-        </Link>
+            <div className="card__sticky card__sticky_type_bottom-left">
+                <button className="card__favorite">
+                    {checkUserPost() && <Delete onClick={handleDeletePost} />}
+                </button>
+            </div>
+            <div className="card__sticky card__sticky_type_bottom-right">
+                <button className="card__favorite" onClick={handleLikeClick}>
+                    <span className="likes">{likes.length}</span>
+                    <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLike })} />
+                </button>
+            </div>
+        </div>
     );
 };
