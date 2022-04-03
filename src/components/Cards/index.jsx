@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import s from "./styles.module.css";
 
 import { Card } from "../Card";
