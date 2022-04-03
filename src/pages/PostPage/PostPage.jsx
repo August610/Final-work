@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback } from "react";
 import api from "../../utils/Api";
 import { useParams } from "react-router-dom";
 import { Post } from '../../components/Post/Post';
+import { useApi } from "../../hooks/useApi";
 
-export const PagePost = ({currentUser, handlePostLike}) => {
-  const [posts, setPost] = useState([]);
+export const PagePost = ({cards}) => {
   const { postID } = useParams();
 ;
 
-  useEffect(()=> {
-    api.getPostById(postID)
-      .then((postData)=> {
-        console.log(postData);
-        setPost(postData);
-      })
-  },[])
+const handler = useCallback(()=> {
+  return api.getPostById(postID)
+}, [postID, cards]);
+
+const {data: post, loading, error} = useApi(handler);
 
   return (
     <>
-          <Post {...posts} currentUser={currentUser} onPostLike={handlePostLike}/>  
+          {post && <Post {...post} />}
     </>
   );
 };
