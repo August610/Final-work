@@ -33,7 +33,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
     
     function checkUserPost() {
         const userPost = false;
-        if(author.email === "sosnin.aleksande@mail.ru"){
+        if(author?.email === "sosnin.aleksande@mail.ru"){
             userPost = true;
         }
         return userPost
@@ -45,14 +45,14 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
             <Link to={`/posts/${_id}`} className="card__link">
                 <a href="/" className="card__link">
                     <p className="card__name"><b>{title}</b></p>
-                    {{ image } && <img src={image} className="card__image" alt="img" />}
+                    {{image} && <img src={image} className="card__image" alt="img" />}
                 </a>
             </Link>
             <div className="post_info">
-                <h2><b>Tags</b>: {tags}</h2>
+                <h2><b>Tags</b>: {tags && tags}</h2>
                 {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
-                <b>Author</b>: <span>{author.email}</span>
-                <p>{text}</p>
+                <b>Author</b>: <span>{author?.email}</span>
+                <div className="textPost">{text}</div>
                 <p><b>create</b>: {created_at}</p>
                 <p><b>updated</b>: {updated_at}</p>
             </div>
