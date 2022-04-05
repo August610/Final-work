@@ -30,13 +30,11 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
         handlePostLike( _id, isLike )
     }
 
-    
     function checkUserPost() {
-        const userPost = false;
         if(author?.email === "sosnin.aleksande@mail.ru"){
-            userPost = true;
+            return true
         }
-        return userPost
+        
     }
 
     return (

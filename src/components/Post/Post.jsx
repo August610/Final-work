@@ -32,11 +32,12 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
         handlePostLike(_id, isLike)
     }
 
+    
     function checkUserPost() {
-        const userPost = false;
-        if (author?.email === "sosnin.aleksande@mail.ru") {
-            userPost = true;
+        if(author?.email === "sosnin.aleksande@mail.ru"){
+            return true
         }
+        
     }
 
     return (

@@ -38,7 +38,7 @@ export const AppAnt = () => {
   function handleDeletePost({ _id }) {
     api.deletePost(_id)
       .then((newData) => {
-        setCards(newData)
+        window.location.reload();
       })
       .catch(alert("Ошибка доступа"))
   }
