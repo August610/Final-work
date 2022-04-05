@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./styles.css";
 import s from "./styles.module.css";
 import { ReactComponent as Save } from './img/save.svg'
@@ -9,10 +9,14 @@ import { DeletePostContext } from "../../context/deletePostContext";
 import { useNavigate } from "react-router-dom";
 import { isLiked } from './../../utils/utils';
 import { AppContext } from "../../context/appContext";
+import { Modal } from "../Modal/Modal";
+import { CreatePostForm } from "../CreatePostForm/CreatePostForm";
+import { EditPostForm } from "../CreatePostForm/EditForm";
 
 export const Post = ({ _id, likes, title, image, tags, author, avatar, text, created_at, updated_at }) => {
     const currentUser = useContext(CurrentUserContext);
     const onDeletePost = useContext(DeletePostContext);
+    const [modalActive, setModalActive] = useState(false);
     const { handlePostLike } = useContext(AppContext);
     const navigate = useNavigate();
 
@@ -40,7 +44,10 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
             <div className="post">
                 <div className="buttons">
                     <a href="#" className="button-back" onClick={() => navigate(-1)}>back</a>
-                    <a href="#" className="button-edit" onClick={() => navigate(-1)}>edit</a>
+                    <a href="#" className="button-edit" onClick={() => setModalActive(true)}>edit</a>
+                    <Modal active={modalActive} setActive={setModalActive}>
+                        <EditPostForm title={title} text={text} image={image} tags={tags}/>
+                    </Modal>
                 </div>
 
                 <h1 className="card__name"><b>{title}</b></h1>
