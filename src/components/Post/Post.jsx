@@ -33,7 +33,6 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
         if (author?.email === "sosnin.aleksande@mail.ru") {
             userPost = true;
         }
-        return userPost
     }
 
     return (
@@ -65,7 +64,6 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
                         </button>
                     </div>
                 </div>
-
             </div>
         </>
     );
