@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import { AllPosts } from "./pages/AllPostsPage/AllPostsPage";
 import { PagePost } from "./pages/PostPage/PostPage";
 import { AppContext } from "./context/appContext";
+import { CreatePost } from "./pages/CreatePost/CreatePost";
 
 
 export const AppAnt = () => {
@@ -23,6 +24,7 @@ export const AppAnt = () => {
   useEffect(() => {
     Promise.all([api.getPostsList(), api.getUserInfo()])
       .then(([postData, userData]) => {
+        console.log(cards);
         setCurrentUser(userData)
         setCards(postData);
       })
@@ -51,10 +53,15 @@ export const AppAnt = () => {
     });
   }
 
-
+  function handleCreateNewPost(data) {
+    api.createNewPost(data)
+      .then((newCard) => {
+        return(newCard);
+      });
+  };
 
   return (
-    <AppContext.Provider value={{handlePostLike}}>
+    <AppContext.Provider value={{ handlePostLike }}>
       <DeletePostContext.Provider value={handleDeletePost}>
         <CurrentUserContext.Provider value={currentUser}>
           <Header user={currentUser} onUpdateUser={handleUpdateUser}>
@@ -68,7 +75,6 @@ export const AppAnt = () => {
                   <AllPosts
                     currentUser={currentUser}
                     cards={cards}
-                    // handlePostLike={handlePostLike}
                   />
                 }
               />
@@ -80,6 +86,12 @@ export const AppAnt = () => {
                     onPostLike={handlePostLike}
                     cards={cards}
                   />
+                }
+              />
+              <Route
+                path="/createPost"
+                element={
+                  <CreatePost handleCreateNewPost={handleCreateNewPost}/>
                 }
               />
               <Route path="*" element={<h1>Страница не найдена</h1>} />
