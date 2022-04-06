@@ -47,7 +47,6 @@ export const AppAnt = () => {
         setCards(newData);
         window.location.reload();
       })
-      .catch(alert("Ошибка доступа"))
   }
 
   function handlePostLike(_id, isLiked) {
