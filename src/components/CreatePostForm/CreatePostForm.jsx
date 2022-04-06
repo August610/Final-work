@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import s from "./styles.module.css"
+import cn from "classnames";
 export function CreatePostForm({ handleCreateNewPost }) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -8,15 +9,15 @@ export function CreatePostForm({ handleCreateNewPost }) {
     });
 
     function onSubmit(data) {
-        console.log(data);
+        // console.log(data);
         handleCreateNewPost(data)
     }
 
 
     return (
-        <form className={s.formd} onSubmit={handleSubmit(onSubmit)}>
+        <form className={s.form_title} onSubmit={handleSubmit(onSubmit)}>
             <h3>Create new post</h3>
-            <input
+            <input className={s.formd}
                 type="text"
                 {...register('title', {
                     required: 'Это поле обязательно'
@@ -26,21 +27,21 @@ export function CreatePostForm({ handleCreateNewPost }) {
             <div>
                 {errors?.name && <p className={s.errorMessage}>{errors?.name?.message}</p>}
             </div>
-            <textarea
+            <textarea className={cn(s.form_area)}
                 type="text"
                 {...register('text', {
                     required: 'Это поле обязательно'
                 })}
                 placeholder="text"
             />
-            <input
+            <input className={s.formd}
                 type="text"
                 {...register('image', {
 
                 })}
                 placeholder="image url"
             />
-            <input
+            <input className={s.formd}
                 type="text"
                 {...register('tags', {
 
@@ -48,7 +49,7 @@ export function CreatePostForm({ handleCreateNewPost }) {
                 placeholder="tags"
             />
             {errors?.password && <p className={s.errorMessage}>{errors?.password?.message}</p>}
-            <button>Submit</button>
+            <button className={s.button}>Submit</button>
 
         </form>
     )

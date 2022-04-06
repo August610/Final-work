@@ -8,7 +8,6 @@ export const Cards = ({goods, onPostLike}) => {
   return (
     <div className={s.cards}>
       {goods.map( (dataItem,index) => {
-        
         return (<Card key={`${index}`} {...dataItem} onPostLike={onPostLike} />)
       })}
     </div>

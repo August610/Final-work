@@ -12,12 +12,10 @@ export function EditPostForm( {title, text, image, tags }) {
         // handleCreateNewPost(data)
     }
 
-    console.log({image});
-
     return (
-        <form className={s.formd} onSubmit={handleSubmit(onSubmit)}>
+        <form className={s.form_title} onSubmit={handleSubmit(onSubmit)}>
             <h3>Edit Post</h3>
-            <input
+            <input className={s.formd}
                 type="text"
                 {...register('title', {
                     required: 'Это поле обязательно'
@@ -28,7 +26,7 @@ export function EditPostForm( {title, text, image, tags }) {
             <div>
                 {errors?.name && <p className={s.errorMessage}>{errors?.name?.message}</p>}
             </div>
-            <textarea
+            <textarea className={s.form_area}
                 type="text"
                 {...register('text', {
                     required: 'Это поле обязательно'
@@ -36,7 +34,7 @@ export function EditPostForm( {title, text, image, tags }) {
                 placeholder="text"
                 value={text}
             />
-            <input
+            <input className={s.formd}
                 type="text"
                 {...register('image', {
 
@@ -44,7 +42,7 @@ export function EditPostForm( {title, text, image, tags }) {
                 placeholder="image url"
                 value={image}
             />
-            <input
+            <input className={s.formd}
                 type="text"
                 {...register('tags', {
 
@@ -53,7 +51,7 @@ export function EditPostForm( {title, text, image, tags }) {
                 value={tags}
             />
             {errors?.password && <p className={s.errorMessage}>{errors?.password?.message}</p>}
-            <button>Submit</button>
+            <button className={s.button}>Submit</button>
 
         </form>
     )

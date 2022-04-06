@@ -5,30 +5,36 @@ import { Logo } from "./components/Logo";
 import api from "./utils/Api";
 import { CurrentUserContext } from "./context/currentUserContext";
 import { DeletePostContext } from "./context/deletePostContext";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { AllPosts } from "./pages/AllPostsPage/AllPostsPage";
 import { PagePost } from "./pages/PostPage/PostPage";
 import { AppContext } from "./context/appContext";
 import { CreatePost } from "./pages/CreatePost/CreatePost";
+import Spinner from "./components/Spinner";
 
 
 export const AppAnt = () => {
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-
+  const [isLoading, setIsLoading] = useState(false);
 
   const reload = () => {
     window.location.reload();
   }
 
   useEffect(() => {
+    setIsLoading(true);
     Promise.all([api.getPostsList(), api.getUserInfo()])
       .then(([postData, userData]) => {
-        console.log(cards);
+        // console.log(cards);
         setCurrentUser(userData)
         setCards(postData);
       })
+      .finally(() => {
+        setTimeout(() => setIsLoading(false), 200);
+      });
   }, [])
+
 
   function handleUpdateUser(userUpdate) {
     api.setUserInfo(userUpdate).then((newUserData) => { setCurrentUser(newUserData) }
@@ -38,13 +44,14 @@ export const AppAnt = () => {
   function handleDeletePost({ _id }) {
     api.deletePost(_id)
       .then((newData) => {
+        setCards(newData);
         window.location.reload();
       })
       .catch(alert("Ошибка доступа"))
   }
 
   function handlePostLike(_id, isLiked) {
-    console.log(isLiked)
+    // console.log(isLiked)
     api.changeLikeStatus(_id, isLiked).then((newCard) => {
       const newCardsState = cards.map((c) => {
         return c._id === newCard._id ? newCard : c;
@@ -56,12 +63,13 @@ export const AppAnt = () => {
   function handleCreateNewPost(data) {
     api.createNewPost(data)
       .then((newCard) => {
-        return(newCard);
+        setCards(newCard);
+        window.location.reload()
       });
   };
 
   return (
-    <AppContext.Provider value={{ handlePostLike }}>
+    <AppContext.Provider value={{ handlePostLike, isLoading }}>
       <DeletePostContext.Provider value={handleDeletePost}>
         <CurrentUserContext.Provider value={currentUser}>
           <Header user={currentUser} onUpdateUser={handleUpdateUser}>
@@ -75,6 +83,7 @@ export const AppAnt = () => {
                   <AllPosts
                     currentUser={currentUser}
                     cards={cards}
+                    loading={isLoading}
                   />
                 }
               />
@@ -91,7 +100,7 @@ export const AppAnt = () => {
               <Route
                 path="/createPost"
                 element={
-                  <CreatePost handleCreateNewPost={handleCreateNewPost}/>
+                  <CreatePost handleCreateNewPost={handleCreateNewPost} />
                 }
               />
               <Route path="*" element={<h1>Страница не найдена</h1>} />

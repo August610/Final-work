@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { isLiked } from './../../utils/utils';
 import { AppContext } from "../../context/appContext";
 import { Modal } from "../Modal/Modal";
-import { CreatePostForm } from "../CreatePostForm/CreatePostForm";
 import { EditPostForm } from "../CreatePostForm/EditForm";
 
 export const Post = ({ _id, likes, title, image, tags, author, avatar, text, created_at, updated_at }) => {
@@ -28,16 +27,17 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
     const isLike = likes && isLiked(likes, currentUser._id);
 
     function handleLikeClick(e) {
-        // e.preventDefault();
+        e.preventDefault();
         handlePostLike(_id, isLike)
     }
 
-    
+
     function checkUserPost() {
-        if(author?.email === "sosnin.aleksande@mail.ru"){
+        // if(author?.email === "sosnin.aleksande@mail.ru"){
+        if (currentUser?.email === author?.email) {
             return true
         }
-        
+
     }
 
     return (
@@ -45,9 +45,9 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
             <div className="post">
                 <div className="buttons">
                     <a href="#" className="button-back" onClick={() => navigate(-1)}>back</a>
-                    <a href="#" className="button-edit" onClick={() => setModalActive(true)}>edit</a>
+                    {checkUserPost() && <a href="#" className="button-edit" onClick={() => setModalActive(true)}>edit</a>}
                     <Modal active={modalActive} setActive={setModalActive}>
-                        <EditPostForm title={title} text={text} image={image} tags={tags}/>
+                        <EditPostForm title={title} text={text} image={image} tags={tags} />
                     </Modal>
                 </div>
 
