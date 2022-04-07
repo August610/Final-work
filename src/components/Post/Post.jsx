@@ -22,7 +22,11 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
 
     function handleDeletePost(e) {
         e.preventDefault();
-        onDeletePost({ _id });
+        const confirmm = confirm("Удалить пост?")
+        if (confirmm == true) {
+            onDeletePost({ _id });
+        }
+        navigate(-1);
     }
     const isLike = likes && isLiked(likes, currentUser._id);
 
@@ -37,15 +41,14 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
         if (currentUser?.email === author?.email) {
             return true
         }
-
     }
 
     return (
         <>
             <div className="post">
                 <div className="buttons">
-                    <a href="#" className="button-back" onClick={() => navigate(-1)}>back</a>
-                    {checkUserPost() && <a href="#" className="button-edit" onClick={() => setModalActive(true)}>edit</a>}
+                    <button href="#" className="button_back" onClick={() => navigate(-1)}>back</button>
+                    {checkUserPost() && <button href="#" className="button_edit" onClick={() => setModalActive(true)}>edit</button>}
                     <Modal active={modalActive} setActive={setModalActive}>
                         <EditPostForm title={title} text={text} image={image} tags={tags} />
                     </Modal>
