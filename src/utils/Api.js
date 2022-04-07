@@ -25,14 +25,6 @@ class Api {
         }).then(onResponce)
     }
 
-    searchPosts(searchQuery){
-        return fetch(`${this._baseUrl}/posts/search?query=${searchQuery}`, {
-            headers: {
-                authorization: this._token,
-            },
-        }).then(onResponce)
-    }
-
     deletePost(postId){
         return fetch(`${this._baseUrl}/posts/${postId}`, {
             method: "DELETE",

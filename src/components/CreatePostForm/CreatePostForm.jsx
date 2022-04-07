@@ -9,7 +9,6 @@ export function CreatePostForm({ handleCreateNewPost }) {
     });
 
     function onSubmit(data) {
-        // console.log(data);
         handleCreateNewPost(data)
     }
 
@@ -50,7 +49,6 @@ export function CreatePostForm({ handleCreateNewPost }) {
             />
             {errors?.password && <p className={s.errorMessage}>{errors?.password?.message}</p>}
             <button className={s.button}>Submit</button>
-
         </form>
     )
 }

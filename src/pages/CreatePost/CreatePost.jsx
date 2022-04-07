@@ -4,15 +4,16 @@ import { CreatePostForm } from "../../components/CreatePostForm/CreatePostForm";
 import s from "./styles.module.css";
 
 
-export const CreatePost = ({handleCreateNewPost}) => {
+
+export const CreatePost = ({ handleCreateNewPost }) => {
     const navigate = useNavigate();
 
     return (
         <>
             <div className="buttons">
-                <a href="#" className="button-back" onClick={() => navigate(-1)}>back</a>
+                <button href="#" className={s.button_back} onClick={() => navigate(-1)}>back</button>
             </div>
-            <CreatePostForm handleCreateNewPost={handleCreateNewPost}/>
+            <CreatePostForm handleCreateNewPost={handleCreateNewPost} />
         </>
     );
 };
