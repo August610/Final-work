@@ -5,12 +5,11 @@ import { Logo } from "./components/Logo";
 import api from "./utils/Api";
 import { CurrentUserContext } from "./context/currentUserContext";
 import { DeletePostContext } from "./context/deletePostContext";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { AllPosts } from "./pages/AllPostsPage/AllPostsPage";
 import { PagePost } from "./pages/PostPage/PostPage";
 import { AppContext } from "./context/appContext";
 import { CreatePost } from "./pages/CreatePost/CreatePost";
-import Spinner from "./components/Spinner";
 
 
 export const AppAnt = () => {
@@ -26,7 +25,6 @@ export const AppAnt = () => {
     setIsLoading(true);
     Promise.all([api.getPostsList(), api.getUserInfo()])
       .then(([postData, userData]) => {
-        // console.log(cards);
         setCurrentUser(userData)
         setCards(postData);
       })
@@ -43,10 +41,10 @@ export const AppAnt = () => {
 
   function handleDeletePost({ _id }) {
     api.deletePost(_id)
-      .then((newData) => {
-        setCards(newData);
-        window.location.reload();
-      })
+      .then(() => {
+        const newCards = cards.filter((card) => card._id !== _id);
+        setCards(newCards);
+      });
   }
 
   function handlePostLike(_id, isLiked) {
@@ -62,8 +60,8 @@ export const AppAnt = () => {
   function handleCreateNewPost(data) {
     api.createNewPost(data)
       .then((newCard) => {
-        setCards(newCard);
-        window.location.reload()
+        cards.push(newCard);
+        setCards(cards);
       });
   };
 
