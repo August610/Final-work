@@ -12,12 +12,14 @@ import { AppContext } from "../../context/appContext";
 import { Modal } from "../Modal/Modal";
 import { EditPostForm } from "../CreatePostForm/EditForm";
 
-export const Post = ({ _id, likes, title, image, tags, author, avatar, text, created_at, updated_at }) => {
+export const Post = ({ _id, likes, title, image, tags, author, avatar, text}, post) => {
     const currentUser = useContext(CurrentUserContext);
     const onDeletePost = useContext(DeletePostContext);
     const [modalActive, setModalActive] = useState(false);
     const { handlePostLike } = useContext(AppContext);
     const navigate = useNavigate();
+
+    console.log(post);
 
 
     function handleDeletePost(e) {
@@ -50,7 +52,7 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, cre
                     <button href="#" className="button_back" onClick={() => navigate(-1)}>back</button>
                     {checkUserPost() && <button href="#" className="button_edit" onClick={() => setModalActive(true)}>edit</button>}
                     <Modal active={modalActive} setActive={setModalActive}>
-                        <EditPostForm title={title} text={text} image={image} tags={tags} />
+                        <EditPostForm title={title} text={text} image={image} tags={tags} id={_id} />
                     </Modal>
                 </div>
 
