@@ -41,10 +41,10 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
         <>
             <div className="card">
                 <Link to={`/posts/${_id}`} className="card__link">
-                    <a href="/" className="card__link">
+                    {/* <a href="/" className="card__link"> */}
                         <p className="card__name"><b>{title}</b></p>
                         {{ image } && <img src={image} className="card__image" alt="img" />}
-                    </a>
+                    {/* </a> */}
                 </Link>
                 <div className="post_info">
                     <h2><b>Tags</b>: {tags && tags}</h2>
