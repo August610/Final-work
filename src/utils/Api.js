@@ -73,6 +73,23 @@ class Api {
             body: JSON.stringify({
                 "title": data.title, 
                 "text": data.text,
+                "image": data.image, 
+                "tags": [data.tags]
+            })
+            
+        }).then(onResponce)
+    }
+
+    updatePost(data, postId){
+        return fetch(`${this._baseUrl}/posts/${postId}`, {
+            method: "PATCH",
+            headers: {
+                authorization: this._token,
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                "title": data.title, 
+                "text": data.text,
 	            "image": data.image, 
                 "tags": [data.tags]
             })
