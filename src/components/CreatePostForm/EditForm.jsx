@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { UpdatePostContext } from '../../context/updatePostContext';
+
 import s from "./styles.module.css"
-export function EditPostForm( {title, text, image, tags }) {
+
+export function EditPostForm( {title, text, image, tags, id }) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur"
     });
+    const [info, setinfo] = useState({
+        title: title,
+        text: text,
+        image: image,
+        tags: tags,
+    })
+    const onUpdatePost = useContext(UpdatePostContext);
 
+    console.log(id);
     function onSubmit(data) {
         console.log(data);
+        onUpdatePost(data, id)
         // handleCreateNewPost(data)
+    }
+
+    function handleChange(event) {
+        setinfo({...info, [event.target.name]: event.target.value})
     }
 
     return (
@@ -21,10 +37,11 @@ export function EditPostForm( {title, text, image, tags }) {
                     required: 'Это поле обязательно'
                 })}
                 placeholder="title"
-                value={title}
+                value={info.title}
+                onChange={handleChange}
             />
             <div>
-                {errors?.name && <p className={s.errorMessage}>{errors?.name?.message}</p>}
+                {errors?.title && <p className={s.errorMessage}>{errors?.title?.message}</p>}
             </div>
             <textarea className={s.form_area}
                 type="text"
@@ -32,15 +49,20 @@ export function EditPostForm( {title, text, image, tags }) {
                     required: 'Это поле обязательно'
                 })}
                 placeholder="text"
-                value={text}
+                value={info.text}
+                onChange={handleChange}
             />
+            <div>
+                {errors?.text && <p className={s.errorMessage}>{errors?.text?.message}</p>}
+            </div>
             <input className={s.formd}
                 type="text"
                 {...register('image', {
 
                 })}
                 placeholder="image url"
-                value={image}
+                value={info.image}
+                onChange={handleChange}
             />
             <input className={s.formd}
                 type="text"
@@ -48,9 +70,9 @@ export function EditPostForm( {title, text, image, tags }) {
 
                 })}
                 placeholder="tags"
-                value={tags}
+                value={info.tags}
+                onChange={handleChange}
             />
-            {errors?.password && <p className={s.errorMessage}>{errors?.password?.message}</p>}
             <button className={s.button}>Submit</button>
 
         </form>
