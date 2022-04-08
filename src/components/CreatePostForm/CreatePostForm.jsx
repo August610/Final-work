@@ -9,7 +9,9 @@ export function CreatePostForm({ handleCreateNewPost }) {
     });
 
     function onSubmit(data) {
-        handleCreateNewPost(data)
+        console.log(data);
+        handleCreateNewPost(data, data.image, data.tags)
+        console.log(data.text);
     }
 
 
@@ -24,7 +26,7 @@ export function CreatePostForm({ handleCreateNewPost }) {
                 placeholder="title"
             />
             <div>
-                {errors?.name && <p className={s.errorMessage}>{errors?.name?.message}</p>}
+                {errors?.title && <p className={s.errorMessage}>{errors?.title?.message}</p>}
             </div>
             <textarea className={cn(s.form_area)}
                 type="text"
@@ -33,6 +35,9 @@ export function CreatePostForm({ handleCreateNewPost }) {
                 })}
                 placeholder="text"
             />
+            <div>
+                {errors?.text && <p className={s.errorMessage}>{errors?.text?.message}</p>}
+            </div>
             <input className={s.formd}
                 type="text"
                 {...register('image', {
@@ -47,7 +52,6 @@ export function CreatePostForm({ handleCreateNewPost }) {
                 })}
                 placeholder="tags"
             />
-            {errors?.password && <p className={s.errorMessage}>{errors?.password?.message}</p>}
             <button className={s.button}>Submit</button>
         </form>
     )
