@@ -139,12 +139,14 @@
 }
 
 .commentss{
-	cursor: pointer;
+	cursor: pointer;	
+}
+
+.comments{
 	width: 90%;
 	display: grid;
 	/* grid-template-rows: repeat(4, 1fr); */
-	gap: 10px;
-	cursor: pointer;
+	gap: 7px;
 	font-family: Comic Sans MS, Comic Sans, cursive;
 }
 
@@ -155,9 +157,11 @@
 .delete_iconn{
 	position: absolute;
 	right: 20px;
+	cursor: pointer;
 }
 
 .edit_iconn{
 	position: absolute;
 	right: 40px;
+	cursor: pointer;
 }
