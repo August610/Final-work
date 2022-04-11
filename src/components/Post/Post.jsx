@@ -67,6 +67,8 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         }
     }
 
+    // console.log(comments);
+
     return (
         <>
             <div className="post">
@@ -84,16 +86,16 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                 <div className="autor"> <b>Author</b>:
                     <span> {author?.name}</span>
                 </div>
-                <div className="commentss" onClick={changeToggleCom}> <b>comments:</b>{showCom ? comments?.map(com => (
-                    <div key={com._id} >
-                        {com?.text}
-                        <span>{com?.author === currentUser?._id && <DeleteCom className="delete_iconn" />}</span>
-                        <span>{com?.author === currentUser?._id && <Edit className="edit_iconn" />}</span>
-                    </div>
-                )) : null}</div>
-
-                {/* <span className="">comments: {textCom} </span> */}
-                {/* <button className="button_back" onClick={changeToggle}>add comment</button> */}
+                <span className="commentss" onClick={changeToggleCom}> <b>comments:</b></span>
+                <div className="comments">
+                    {showCom ? comments?.map(com => (
+                        <div>
+                            {com?.text}
+                            {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(alert("a"))}/>}
+                            {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("a"))}/>}
+                        </div>
+                    )) : null}
+                </div>
                 <Button type={changeToggle}>add comment</Button>
                 <div>
                     {show ? <CommentForm id={_id} /> : null}
