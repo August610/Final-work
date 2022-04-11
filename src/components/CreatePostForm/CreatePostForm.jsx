@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import s from "./styles.module.css"
 import cn from "classnames";
+import { Button } from '../../components/Button/Button';
 export function CreatePostForm({ handleCreateNewPost }) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -9,9 +10,7 @@ export function CreatePostForm({ handleCreateNewPost }) {
     });
 
     function onSubmit(data) {
-        console.log(data);
         handleCreateNewPost(data, data.image, data.tags)
-        console.log(data.text);
     }
 
 
@@ -52,7 +51,8 @@ export function CreatePostForm({ handleCreateNewPost }) {
                 })}
                 placeholder="tags"
             />
-            <button className={s.button}>Submit</button>
+            {/* <button className={s.button}>Submit</button> */}
+            <Button children={"Submit"}/>
         </form>
     )
 }
