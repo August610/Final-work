@@ -18,7 +18,7 @@ export const Info = () => {
         <p>We're stoked that you're here. 🥳</p>
         <Link to={`/createPost`}>
           <div>
-            <Button children={"Создать пост"}/>
+            <Button>Создать пост</Button>
           </div>
         </Link>
       </div>
