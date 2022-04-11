@@ -3,6 +3,8 @@ import "./styles.css";
 import s from "./styles.module.css";
 import { ReactComponent as Save } from './img/save.svg'
 import { ReactComponent as Delete } from './img/delete.svg'
+import { ReactComponent as DeleteCom } from './img/delete_com.svg'
+import { ReactComponent as Edit } from './img/edit.svg'
 import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
 import { DeletePostContext } from "../../context/deletePostContext";
@@ -88,11 +90,13 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                     {/* <span><img src={author?.avatar} width="70px" height="70px"></img></span> */}
                     <span> {author?.name}</span>
                 </div>
-                <span className="commentss" onClick={changeToggleCom}> <b>comments:</b>{showCom ? comments?.map(com => (
+                <div className="commentss" onClick={changeToggleCom}> <b>comments:</b>{showCom ? comments?.map(com => (
                     <div key={com._id} >
                         {com?.text}
+                        <span>{checkUserPost() && <DeleteCom className="delete_iconn"/>}</span>
+                        <span>{checkUserPost() && <Edit className="edit_iconn"/>}</span>
                     </div>
-                )) : null}</span>
+                )) : null}</div>
                 
                 {/* <span className="">comments: {textCom} </span> */}
                 {/* <button className="button_back" onClick={changeToggle}>add comment</button> */}
