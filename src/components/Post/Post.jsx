@@ -62,22 +62,17 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
 
 
     function checkUserPost() {
-        // if(author?.email === "sosnin.aleksande@mail.ru"){
         if (currentUser?.email === author?.email) {
-            return true
+            return true;
         }
     }
-
-    const textCom = comments?.map(e => (e.text));
-    console.log(textCom);
 
     return (
         <>
             <div className="post">
                 <div className="buttons">
-                    <Button children={"back"} type={() => navigate("/")} />
-                    {/* {checkUserPost() && <button href="#" className="button_back edit" onClick={() => setModalActive(true)}>edit</button>} */}
-                    {checkUserPost() && <Button children={"edit"} type={() => setModalActive(true)} />}
+                    <Button type={() => navigate("/")}>back</Button>
+                    {checkUserPost() && <Button type={() => setModalActive(true)}>edit</Button>}
                     <Modal active={modalActive} setActive={setModalActive}>
                         <EditPostForm title={title} text={text} image={image} tags={tags} id={_id} />
                     </Modal>
@@ -87,20 +82,19 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                 <p>{text}</p>
                 <span><img src={image} /></span>
                 <div className="autor"> <b>Author</b>:
-                    {/* <span><img src={author?.avatar} width="70px" height="70px"></img></span> */}
                     <span> {author?.name}</span>
                 </div>
                 <div className="commentss" onClick={changeToggleCom}> <b>comments:</b>{showCom ? comments?.map(com => (
                     <div key={com._id} >
                         {com?.text}
-                        <span>{checkUserPost() && <DeleteCom className="delete_iconn"/>}</span>
-                        <span>{checkUserPost() && <Edit className="edit_iconn"/>}</span>
+                        <span>{com?.author === currentUser?._id && <DeleteCom className="delete_iconn" />}</span>
+                        <span>{com?.author === currentUser?._id && <Edit className="edit_iconn" />}</span>
                     </div>
                 )) : null}</div>
-                
+
                 {/* <span className="">comments: {textCom} </span> */}
                 {/* <button className="button_back" onClick={changeToggle}>add comment</button> */}
-                <Button children={"add comment"} type={changeToggle} />
+                <Button type={changeToggle}>add comment</Button>
                 <div>
                     {show ? <CommentForm id={_id} /> : null}
                 </div>
