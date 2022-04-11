@@ -15,6 +15,9 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
     const onDeletePost = useContext(DeletePostContext);
     const { handlePostLike, isLoading } = useContext(AppContext);
 
+    // console.log((created_at.slice(0, 10) + " " + created_at.slice(11, 16)));
+    const time_created = created_at?.slice(0, 10) + " " + created_at?.slice(11, 16);
+    const time_updated = updated_at?.slice(0, 10) + " " + updated_at?.slice(11, 16);
 
     function handleDeletePost(e) {
         e.preventDefault();
@@ -37,6 +40,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
 
     }
 
+
     return (
         <>
             <div className="card">
@@ -51,8 +55,8 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                     {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
                     <b>Author</b>: <span>{author?.email}</span>
                     <div className="textPost">{text}</div>
-                    <p><b>create</b>: {created_at}</p>
-                    <p><b>updated</b>: {updated_at}</p>
+                    <p><b>create</b>: {time_created}</p>
+                    <p><b>updated</b>: {time_updated}</p>
                 </div>
                 <div className="card__sticky card__sticky_type_bottom-left">
                     <button className="card__favorite">
