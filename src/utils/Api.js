@@ -97,6 +97,28 @@ class Api {
         }).then(onResponce)
     }
     
+    addComments(data, postId){
+        return fetch(`${this._baseUrl}/posts/comments/${postId}`, {
+            method: "POST",
+            headers: {
+                authorization: this._token,
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                ["text"]: data.text
+            })
+            
+        }).then(onResponce)
+    }
+
+    getComments(postId){
+        return fetch(`${this._baseUrl}/posts/comments/${postId}`, {
+            headers: {
+                authorization: this._token,
+            },
+        }).then(onResponce)
+    }
+
 }
 
 const config = {
