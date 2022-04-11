@@ -73,7 +73,7 @@
 
 
 .card__favorite-icon:hover {
-	fill: #ff0000;
+	/* fill: #ff0000; */
 	-webkit-transform: scale(1.2);
 	-ms-transform: scale(1.2);
 	transform: scale(1.2);

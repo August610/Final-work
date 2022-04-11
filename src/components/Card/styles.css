@@ -121,3 +121,10 @@
 	font-size: 16px;
 	line-height: 20px;
 }
+
+.image_avatar{
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	left: 65px;
+}

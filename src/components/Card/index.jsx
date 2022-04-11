@@ -40,7 +40,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
 
     }
 
-
+    console.log(author);
     return (
         <>
             <div className="card">
@@ -53,7 +53,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                 <div className="post_info">
                     <h2><b>Tags</b>: {tags && tags}</h2>
                     {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
-                    <b>Author</b>: <span>{author?.email}</span>
+                    <b>Author</b>: <span className="email">{author?.name}</span>
                     <div className="textPost">{text}</div>
                     <p><b>create</b>: {time_created}</p>
                     <p><b>updated</b>: {time_updated}</p>
