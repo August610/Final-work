@@ -73,8 +73,8 @@ class Api {
             body: JSON.stringify({
                 "title": data.title, 
                 "text": data.text,
-                "image": data.image, 
-                "tags": [data.tags]
+                "image": data?.image ? data?.image : "http://dummyimage.com/400x200.png/5fa2dd/ffffff", 
+                "tags": [data?.tags]
             })
             
         }).then(onResponce)
