@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import s from "./styles.module.css";
 import cn from "classnames";
+import { Button } from '../../components/Button/Button';
 
 
 const click = (e) => {
@@ -17,7 +18,7 @@ export const Info = () => {
         <p>We're stoked that you're here. 🥳</p>
         <Link to={`/createPost`}>
           <div>
-            <button className={s.btnn}>Создать пост</button>
+            <Button children={"Создать пост"}/>
           </div>
         </Link>
       </div>
