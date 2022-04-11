@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UpdatePostContext } from '../../context/updatePostContext';
+import { Button } from '../Button/Button';
 
 import s from "./styles.module.css"
 
@@ -17,11 +18,8 @@ export function EditPostForm( {title, text, image, tags, id }) {
     })
     const onUpdatePost = useContext(UpdatePostContext);
 
-    console.log(id);
     function onSubmit(data) {
-        console.log(data);
         onUpdatePost(data, id)
-        // handleCreateNewPost(data)
     }
 
     function handleChange(event) {
@@ -73,7 +71,7 @@ export function EditPostForm( {title, text, image, tags, id }) {
                 value={info.tags}
                 onChange={handleChange}
             />
-            <button className={s.button}>Submit</button>
+            <Button children={"Submit"}/>
 
         </form>
     )
