@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import s from "./styles.module.css"
 import cn from "classnames";
 import { AddCommentContext } from '../../context/commentContext';
+import { Button } from '../Button/Button';
 export function CommentForm({ id }) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -28,7 +29,7 @@ export function CommentForm({ id }) {
             <div>
                 {errors?.text && <p className={s.errorMessage}>{errors?.text?.message}</p>}
             </div>
-            <button className={s.button_com}>Submit</button>
+            <Button children={"Submit"}/>
         </form>
     )
 }
