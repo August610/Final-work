@@ -11,15 +11,36 @@ import { isLiked } from './../../utils/utils';
 import { AppContext } from "../../context/appContext";
 import { Modal } from "../Modal/Modal";
 import { EditPostForm } from "../CreatePostForm/EditForm";
+import { CommentForm } from "../CreatePostForm/CommentForm";
+import api from "../../utils/Api";
+import { Button } from '../../components/Button/Button';
 
-export const Post = ({ _id, likes, title, image, tags, author, avatar, text}, post) => {
+export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at, com }) => {
     const currentUser = useContext(CurrentUserContext);
     const onDeletePost = useContext(DeletePostContext);
     const [modalActive, setModalActive] = useState(false);
+    const [show, setShow] = useState(false);
+    const [showCom, setShowCom] = useState(false);
     const { handlePostLike } = useContext(AppContext);
     const navigate = useNavigate();
 
-    console.log(post);
+    function changeToggle() {
+        if (!show) {
+            setShow(true)
+        }
+        if (show) {
+            setShow(false)
+        }
+    }
+
+    function changeToggleCom() {
+        if (!showCom) {
+            setShowCom(true)
+        }
+        if (showCom) {
+            setShowCom(false)
+        }
+    }
 
 
     function handleDeletePost(e) {
@@ -45,12 +66,16 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text}, po
         }
     }
 
+    const textCom = comments?.map(e => (e.text));
+    console.log(textCom);
+
     return (
         <>
             <div className="post">
                 <div className="buttons">
-                    <button href="#" className="button_back" onClick={() => navigate(-1)}>back</button>
-                    {checkUserPost() && <button href="#" className="button_edit" onClick={() => setModalActive(true)}>edit</button>}
+                    <Button children={"back"} type={() => navigate("/")} />
+                    {/* {checkUserPost() && <button href="#" className="button_back edit" onClick={() => setModalActive(true)}>edit</button>} */}
+                    {checkUserPost() && <Button children={"edit"} type={() => setModalActive(true)} />}
                     <Modal active={modalActive} setActive={setModalActive}>
                         <EditPostForm title={title} text={text} image={image} tags={tags} id={_id} />
                     </Modal>
@@ -62,6 +87,18 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text}, po
                 <div className="autor"> <b>Author</b>:
                     {/* <span><img src={author?.avatar} width="70px" height="70px"></img></span> */}
                     <span> {author?.name}</span>
+                </div>
+                <span className="commentss" onClick={changeToggleCom}> <b>comments:</b>{showCom ? comments?.map(com => (
+                    <div key={com._id} >
+                        {com?.text}
+                    </div>
+                )) : null}</span>
+                
+                {/* <span className="">comments: {textCom} </span> */}
+                {/* <button className="button_back" onClick={changeToggle}>add comment</button> */}
+                <Button children={"add comment"} type={changeToggle} />
+                <div>
+                    {show ? <CommentForm id={_id} /> : null}
                 </div>
 
                 <div className="icons">
