@@ -167,6 +167,7 @@
 	fill: #ff0000;
 }
 
+
 @media (max-width: 1000px) {
 	.product {
 		gap: 20px;

@@ -70,7 +70,15 @@
 	fill: #ff0000;
 }
 
-.likes{
+
+.card__favorite-icon:hover {
+	fill: #ff0000;
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	transform: scale(1.2);
+}
+
+.likes {
 	position: relative;
 	bottom: -5px;
 	right: 5px;
@@ -111,27 +119,29 @@
 }
 
 .icons {
-    padding-top: 40px;
+	padding-top: 40px;
 }
 
-.autor{
+.autor {
 	padding-top: 10px;
 }
 
 
-.button_edit{
-	right: 0px;
+.edit {
+	right: -5px;
 	position: absolute;
-    border: 1px solid #bdbdbd;
-    border-radius: 10px;
-    /* box-shadow: -7px 14px 25px -1px rgba(0, 0, 0, 0.96); */
-    background-color: white;
-    cursor: pointer;
 }
-.button_back {
-    border: 1px solid #bdbdbd;
-    border-radius: 10px;
-    /* box-shadow: -7px 14px 25px -1px rgba(0, 0, 0, 0.96); */
-    background-color: white;
-    cursor: pointer;
+
+
+.form_com {
+	display: none;
+}
+
+.commentss{
+	cursor: pointer;
+	width: 100%;
+	display: grid;
+	/* grid-template-rows: repeat(4, 1fr); */
+	gap: 10px;
+	cursor: pointer;
 }
