@@ -22,8 +22,9 @@
 }
 
 .button:hover {
-	background: #2EE59D;
-	box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+	/* background: #2EE59D; */
+	background: rgb(219, 215, 215);
+	box-shadow: 0 15px 20px rgba(50, 53, 52, 0.4);
 	color: white;
 	transform: translateY(-7px);
 }
