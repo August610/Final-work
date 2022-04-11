@@ -91,8 +91,8 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                     {showCom ? comments?.map(com => (
                         <div>
                             {com?.text}
-                            {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(alert("a"))}/>}
-                            {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("a"))}/>}
+                            {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(alert("Удаление"))}/>}
+                            {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))}/>}
                         </div>
                     )) : null}
                 </div>
