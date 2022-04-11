@@ -29,7 +29,7 @@ export function CommentForm({ id }) {
             <div>
                 {errors?.text && <p className={s.errorMessage}>{errors?.text?.message}</p>}
             </div>
-            <Button children={"Submit"}/>
+            <Button>Submit</Button>
         </form>
     )
 }

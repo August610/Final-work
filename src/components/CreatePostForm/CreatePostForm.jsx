@@ -52,7 +52,7 @@ export function CreatePostForm({ handleCreateNewPost }) {
                 placeholder="tags"
             />
             {/* <button className={s.button}>Submit</button> */}
-            <Button children={"Submit"}/>
+            <Button>Submit</Button>
         </form>
     )
 }

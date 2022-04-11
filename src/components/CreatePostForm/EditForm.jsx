@@ -71,7 +71,7 @@ export function EditPostForm( {title, text, image, tags, id }) {
                 value={info.tags}
                 onChange={handleChange}
             />
-            <Button children={"Submit"}/>
+            <Button>Submit</Button>
 
         </form>
     )
