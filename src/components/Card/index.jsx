@@ -46,12 +46,21 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
             <div className="card">
                 <Link to={`/posts/${_id}`} className="card__link">
                     {/* <a href="/" className="card__link"> */}
-                        <p className="card__name"><b>{title}</b></p>
-                        {{ image } && <img src={image} className="card__image" alt="img" />}
+                    <p className="card__name"><b>{title}</b></p>
+                    {{ image } && <img src={image} className="card__image" alt="img" />}
                     {/* </a> */}
                 </Link>
                 <div className="post_info">
-                    <h2><b>Tags</b>: {tags && tags}</h2>
+                    <h2><b>Tags</b>: {tags &&
+                        tags.filter(e => e !== " ").map((tag, i) => (
+                            <span
+                                key={i}
+                                className={cn("tag")}
+                            >
+                                {tags.length > 1 && tag !== " "? tag + "." : tag }
+                            </span>
+                        ))}
+                    </h2>
                     {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
                     <b>Author</b>: <span className="email">{author?.name}</span>
                     <div className="textPost">{text}</div>

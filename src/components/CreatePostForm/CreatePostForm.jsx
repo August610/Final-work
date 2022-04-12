@@ -3,14 +3,18 @@ import { useForm } from 'react-hook-form';
 import s from "./styles.module.css"
 import cn from "classnames";
 import { Button } from '../../components/Button/Button';
+import { useNavigate } from "react-router-dom";
 export function CreatePostForm({ handleCreateNewPost }) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur"
     });
+    const navigate = useNavigate();
+ 
 
     function onSubmit(data) {
         handleCreateNewPost(data, data.image, data.tags)
+        setTimeout(() => navigate("/"), 200); 
     }
 
 

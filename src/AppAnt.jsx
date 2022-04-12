@@ -62,6 +62,7 @@ export const AppAnt = () => {
   function handleCreateNewPost(data) {
     api.createNewPost(data)
       .then((newCard) => {
+        alert("Пост создан!")
         cards.push(newCard);
         setCards(cards);
       });
@@ -72,6 +73,7 @@ export const AppAnt = () => {
       .then((newCard) => {
         // cards.splice(cards.indexOf(cards.find(e => e.id === id)), 1, updatePost)
         // setCards(cards);
+        alert("Пост обновлен!")
         const newCards = cards.map((c) => {
           return c._id === newCard._id ? newCard : c
         });

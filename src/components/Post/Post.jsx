@@ -67,7 +67,7 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         }
     }
 
-    // console.log(comments);
+    // console.log(tags);
 
     return (
         <>
@@ -76,7 +76,7 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                     <Button type={() => navigate("/")}>back</Button>
                     {checkUserPost() && <Button type={() => setModalActive(true)}>edit</Button>}
                     <Modal active={modalActive} setActive={setModalActive}>
-                        <EditPostForm title={title} text={text} image={image} tags={tags} id={_id} />
+                        <EditPostForm title={title} text={text} image={image} tags={tags} id={_id} setActive={setModalActive}/>
                     </Modal>
                 </div>
 

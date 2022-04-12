@@ -5,7 +5,7 @@ import { Button } from '../Button/Button';
 
 import s from "./styles.module.css"
 
-export function EditPostForm({title, text, image, tags, id}) {
+export function EditPostForm({title, text, image, tags, id, setActive}) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur"
@@ -21,7 +21,9 @@ export function EditPostForm({title, text, image, tags, id}) {
     const onUpdatePost = useContext(UpdatePostContext);
 
     function onSubmit(data) {
-        onUpdatePost(data, id)
+        onUpdatePost(data, id);
+        setTimeout(() => setActive(false), 200); 
+        
     }
 
     function handleChange(event) {

@@ -74,7 +74,7 @@ class Api {
                 "title": data.title, 
                 "text": data.text,
                 "image": data?.image ? data?.image : "http://dummyimage.com/400x200.png/5fa2dd/ffffff", 
-                "tags": [data?.tags]
+                "tags": [...data?.tags]
             })
             
         }).then(onResponce)
