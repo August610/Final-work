@@ -94,3 +94,32 @@ input {
     color: red;
     font-size: 12px;
 }
+
+.title{
+    text-decoration: none;
+	display: inline-block;
+	width: 50%;
+	height: 25px;
+	line-height: 22px;
+	border: 1px solid #bdbdbd;
+	border-radius: 35px;
+	margin-top: 10px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: 3px;
+	font-weight: 600;
+	color: #524f4e;
+	/* background: white; */
+	box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+	transition: .3s;
+}
+
+.title:hover {
+	/* background: #2EE59D; */
+	background: rgb(219, 215, 215);
+	box-shadow: 0 15px 20px rgba(50, 53, 52, 0.4);
+	/* color: white; */
+	/* transform: translateY(-7px); */
+}

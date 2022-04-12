@@ -8,8 +8,9 @@ import { DeletePostContext } from "../../context/deletePostContext";
 import { Link } from "react-router-dom";
 import { isLiked } from "../../utils/utils";
 import { AppContext } from "../../context/appContext";
+import ContentLoader from "react-content-loader";
 
-export const Card = ({ _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
+export const Card = ({ _id, likes, title, image, tags, author, text, created_at, updated_at}) => {
 
     const currentUser = useContext(CurrentUserContext);
     const onDeletePost = useContext(DeletePostContext);
@@ -43,6 +44,17 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
     // console.log(author);
     return (
         <>
+            {isLoading ? (<ContentLoader
+                viewBox="0 0 400 160"
+                height={160}
+                width={400}
+                backgroundColor="transparent"
+            >
+                <circle cx="150" cy="86" r="8" />
+                <circle cx="194" cy="86" r="8" />
+                <circle cx="238" cy="86" r="8" />
+            </ContentLoader>) : (
+
             <div className="card">
                 <Link to={`/posts/${_id}`} className="card__link">
                     {/* <a href="/" className="card__link"> */}
@@ -57,7 +69,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                                 key={i}
                                 className={cn("tag")}
                             >
-                                {tags.length > 1 && tag !== " "? tag + "." : tag }
+                                {tags.length > 1 && tag !== " " ? tag + "." : tag}
                             </span>
                         ))}
                     </h2>
@@ -79,6 +91,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                     </button>
                 </div>
             </div>
+            )}
         </>
     );
 };

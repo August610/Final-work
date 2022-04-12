@@ -129,3 +129,6 @@
 	border-radius: 50px;
 	left: 65px;
 }
+.skeleton{
+	position: absolute;
+}

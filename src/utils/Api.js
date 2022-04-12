@@ -9,8 +9,8 @@ class Api {
         this._token = `Bearer ${token}`;
     }
 
-    getPostsList(){
-        return fetch(`${this._baseUrl}/posts`, {
+    getPostsList(page = 1, limit = 100){
+        return fetch(`${this._baseUrl}/posts/paginate/?page=${page}&limit=${limit}`, {
             headers: {
                 authorization: this._token,
             },

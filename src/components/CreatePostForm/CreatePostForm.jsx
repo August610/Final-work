@@ -20,7 +20,7 @@ export function CreatePostForm({ handleCreateNewPost }) {
 
     return (
         <form className={s.form_title} onSubmit={handleSubmit(onSubmit)}>
-            <h3>Create new post</h3>
+            <h3 className={s.title}>Create new post</h3>
             <input className={s.formd}
                 type="text"
                 {...register('title', {
