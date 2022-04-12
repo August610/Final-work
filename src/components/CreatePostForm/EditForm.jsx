@@ -5,17 +5,19 @@ import { Button } from '../Button/Button';
 
 import s from "./styles.module.css"
 
-export function EditPostForm( {title, text, image, tags, id }) {
+export function EditPostForm({title, text, image, tags, id}) {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur"
     });
+
     const [info, setinfo] = useState({
         title: title,
         text: text,
         image: image,
         tags: tags,
     })
+
     const onUpdatePost = useContext(UpdatePostContext);
 
     function onSubmit(data) {

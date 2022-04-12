@@ -40,7 +40,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
 
     }
 
-    console.log(author);
+    // console.log(author);
     return (
         <>
             <div className="card">

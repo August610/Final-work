@@ -17,7 +17,7 @@ import { CommentForm } from "../CreatePostForm/CommentForm";
 import api from "../../utils/Api";
 import { Button } from '../../components/Button/Button';
 
-export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at, com }) => {
+export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at}) => {
     const currentUser = useContext(CurrentUserContext);
     const onDeletePost = useContext(DeletePostContext);
     const [modalActive, setModalActive] = useState(false);
@@ -88,13 +88,13 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                 </div>
                 <span className="commentss" onClick={changeToggleCom}> <b>comments:</b></span>
                 <div className="comments">
-                    {showCom ? comments?.map(com => (
+                    {comments?.length !== 0 ? showCom ? comments?.map(com => (
                         <div>
                             {com?.text}
                             {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(alert("Удаление"))}/>}
                             {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))}/>}
                         </div>
-                    )) : null}
+                    )) : null : <>no comments</> }
                 </div>
                 <Button type={changeToggle}>add comment</Button>
                 <div>
