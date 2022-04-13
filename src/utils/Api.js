@@ -111,6 +111,16 @@ class Api {
         }).then(onResponce)
     }
 
+    deleteComments(postId, commentId){
+        return fetch(`${this._baseUrl}/posts/comments/${postId}/${commentId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: this._token,
+
+            },
+        }).then(onResponce)
+    }
+
     getComments(postId){
         return fetch(`${this._baseUrl}/posts/comments/${postId}`, {
             headers: {
@@ -118,7 +128,6 @@ class Api {
             },
         }).then(onResponce)
     }
-
 }
 
 const config = {

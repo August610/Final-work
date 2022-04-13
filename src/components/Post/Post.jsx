@@ -7,7 +7,7 @@ import { ReactComponent as DeleteCom } from './img/delete_com.svg'
 import { ReactComponent as Edit } from './img/edit.svg'
 import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
-import { DeletePostContext } from "../../context/deletePostContext";
+import { DeleteContext} from "../../context/deletePostContext";
 import { useNavigate } from "react-router-dom";
 import { isLiked } from './../../utils/utils';
 import { AppContext } from "../../context/appContext";
@@ -19,7 +19,8 @@ import { Button } from '../../components/Button/Button';
 
 export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at}) => {
     const currentUser = useContext(CurrentUserContext);
-    const onDeletePost = useContext(DeletePostContext);
+    // const onDeletePost = useContext();
+    const { handleDeletePost, handleDeleteComment } = useContext(DeleteContext);
     const [modalActive, setModalActive] = useState(false);
     const [show, setShow] = useState(false);
     const [showCom, setShowCom] = useState(false);
@@ -44,15 +45,26 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         }
     }
 
-
-    function handleDeletePost(e) {
+    function deletePost(e) {
         e.preventDefault();
         const confirmm = confirm("Удалить пост?")
         if (confirmm == true) {
-            onDeletePost({ _id });
+            handleDeletePost({ _id });
         }
         navigate(-1);
     }
+
+    function deleteComment(idCom) {
+        // e.preventDefault();
+        console.log(idCom);
+        console.log(_id);
+        const confirmm = confirm("Удалить комментарий?")
+        if (confirmm == true) {
+            handleDeleteComment( [_id], [idCom] );
+        }
+        // navigate(-1);
+    }
+
     const isLike = likes && isLiked(likes, currentUser._id);
 
     function handleLikeClick(e) {
@@ -60,14 +72,13 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         handlePostLike(_id, isLike)
     }
 
-
     function checkUserPost() {
         if (currentUser?.email === author?.email) {
             return true;
         }
     }
 
-    // console.log(tags);
+    console.log(comments);
 
     return (
         <>
@@ -88,10 +99,10 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                 </div>
                 <span className="commentss" onClick={changeToggleCom}> <b>comments:</b></span>
                 <div className="comments">
-                    {comments?.length !== 0 ? showCom ? comments?.map(com => (
-                        <div>
+                    {comments?.length !== 0 ? showCom ? comments?.map((com, i) => (
+                        <div key={i}>
                             {com?.text}
-                            {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(alert("Удаление"))}/>}
+                            {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(deleteComment(com?._id))}/>}
                             {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))}/>}
                         </div>
                     )) : null : <>no comments</> }
@@ -104,7 +115,7 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                 <div className="icons">
                     <div className="card__sticky card__sticky_type_bottom-left">
                         <button className="card__favorite">
-                            {checkUserPost() && <Delete onClick={handleDeletePost} />}
+                            {checkUserPost() && <Delete onClick={deletePost} />}
                         </button>
                     </div>
                     <div className="card__sticky card__sticky_type_bottom-right">

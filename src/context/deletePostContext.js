@@ -1,3 +1,9 @@
 import React from "react"
-export const DeletePostContext = React.createContext()
-DeletePostContext.displayName = "DeletePostContext";
+
+export const DeleteContext = React.createContext({
+    handleDeletePost: () => {},
+    handleDeleteComment: () => {},
+})
+
+DeleteContext.displayName = "DeleteContext";
+

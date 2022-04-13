@@ -4,7 +4,7 @@ import { Footer } from "./components/Footer";
 import { Logo } from "./components/Logo";
 import api from "./utils/Api";
 import { CurrentUserContext } from "./context/currentUserContext";
-import { DeletePostContext } from "./context/deletePostContext";
+import { DeleteContext } from "./context/deletePostContext";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { AllPosts } from "./pages/AllPostsPage/AllPostsPage";
 import { PagePost } from "./pages/PostPage/PostPage";
@@ -20,8 +20,8 @@ export const AppAnt = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const [page, setPage] = useState(location.search.split("=") [1] || 1);
-  const [pageLimit, setPageLimit] = useState(8);
+  const [page, setPage] = useState(location.search.split("=")[1] || 1);
+  const [pageLimit, setPageLimit] = useState(10);
   const [pageQty, setPageQty] = useState(0);
 
 
@@ -97,17 +97,30 @@ export const AppAnt = () => {
       });
   }
 
+  function handleDeleteComment(postId, commentId) {
+    api.deleteComments(postId, commentId)
+      .then((newCard) => {
+        const newCards = cards.map((c) => {
+          return c._id === newCard._id ? newCard : c
+        });
+        setCards(newCards);
+      });
+  }
+
   function setPagination(number) {
-    console.log(typeof number);
     setPage(number);
   }
 
+  function onShowSizeChange(current, pageSize) {
+    // console.log(current, pageSize);
+    setPageLimit(pageSize)
+  }
 
   return (
     <AddCommentContext.Provider value={handleAddComment}>
       <UpdatePostContext.Provider value={handleUpdatePost}>
         <AppContext.Provider value={{ handlePostLike, isLoading }}>
-          <DeletePostContext.Provider value={handleDeletePost}>
+          <DeleteContext.Provider value={{ handleDeletePost, handleDeleteComment }}>
             <CurrentUserContext.Provider value={currentUser}>
               <Header user={currentUser} onUpdateUser={handleUpdateUser}>
                 {/* <Link to={"/"}> */}
@@ -125,8 +138,8 @@ export const AppAnt = () => {
                           cards={cards}
                           loading={isLoading}
                         />
-                        <Pagination current={page} onChange={setPagination} total={pageQty} />
-                        
+                        <Pagination current={page} onChange={setPagination} total={pageQty} onShowSizeChange={onShowSizeChange} showSizeChanger />
+
                       </>
                     }
                   />
@@ -151,7 +164,7 @@ export const AppAnt = () => {
               </main>
               <Footer>© You!</Footer>
             </CurrentUserContext.Provider>
-          </DeletePostContext.Provider>
+          </DeleteContext.Provider>
         </AppContext.Provider>
       </UpdatePostContext.Provider>
     </AddCommentContext.Provider>

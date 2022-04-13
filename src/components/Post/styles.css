@@ -5,7 +5,8 @@
 	align-items: flex-start;
 	padding: 10px;
 	border-radius: 10px;
-	width: 400px;
+	width: 500px;
+	/* text-align: center; */
 }
 
 .card:hover {

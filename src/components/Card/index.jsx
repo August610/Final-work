@@ -4,7 +4,7 @@ import { ReactComponent as Save } from './img/save.svg'
 import { ReactComponent as Delete } from './img/delete.svg'
 import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
-import { DeletePostContext } from "../../context/deletePostContext";
+import { DeleteContext } from "../../context/deletePostContext";
 import { Link } from "react-router-dom";
 import { isLiked } from "../../utils/utils";
 import { AppContext } from "../../context/appContext";
@@ -13,18 +13,20 @@ import ContentLoader from "react-content-loader";
 export const Card = ({ _id, likes, title, image, tags, author, text, created_at, updated_at}) => {
 
     const currentUser = useContext(CurrentUserContext);
-    const onDeletePost = useContext(DeletePostContext);
+    // const onDeletePost = useContext(DeletePostContext);
     const { handlePostLike, isLoading } = useContext(AppContext);
+    const { handleDeletePost} = useContext(DeleteContext);
+
 
     // console.log((created_at.slice(0, 10) + " " + created_at.slice(11, 16)));
     const time_created = created_at?.slice(0, 10) + " " + created_at?.slice(11, 16);
     const time_updated = updated_at?.slice(0, 10) + " " + updated_at?.slice(11, 16);
 
-    function handleDeletePost(e) {
+    function deletePost(e) {
         e.preventDefault();
         const confirmm = confirm("Удалить пост?")
         if (confirmm == true) {
-            onDeletePost({ _id });
+            handleDeletePost({ _id });
         }
     }
     const isLike = isLiked(likes, currentUser?._id);
@@ -57,10 +59,8 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
 
             <div className="card">
                 <Link to={`/posts/${_id}`} className="card__link">
-                    {/* <a href="/" className="card__link"> */}
                     <p className="card__name"><b>{title}</b></p>
                     {{ image } && <img src={image} className="card__image" alt="img" />}
-                    {/* </a> */}
                 </Link>
                 <div className="post_info">
                     <h2><b>Tags</b>: {tags &&
@@ -73,7 +73,6 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                             </span>
                         ))}
                     </h2>
-                    {/* <span><img src={author.avatar} width="40px" heigth="40px" /></span> */}
                     <b>Author</b>: <span className="email">{author?.name}</span>
                     <div className="textPost">{text}</div>
                     <p><b>create</b>: {time_created}</p>
@@ -81,7 +80,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                 </div>
                 <div className="card__sticky card__sticky_type_bottom-left">
                     <button className="card__favorite">
-                        {checkUserPost() && <Delete onClick={handleDeletePost} />}
+                        {checkUserPost() && <Delete onClick={deletePost} />}
                     </button>
                 </div>
                 <div className="card__sticky card__sticky_type_bottom-right">
