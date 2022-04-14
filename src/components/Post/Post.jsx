@@ -7,24 +7,26 @@ import { ReactComponent as DeleteCom } from './img/delete_com.svg'
 import { ReactComponent as Edit } from './img/edit.svg'
 import cn from 'classnames';
 import { CurrentUserContext } from "../../context/currentUserContext";
-import { DeleteContext} from "../../context/deletePostContext";
+import { DeleteContext } from "../../context/deletePostContext";
 import { useNavigate } from "react-router-dom";
 import { isLiked } from './../../utils/utils';
 import { AppContext } from "../../context/appContext";
 import { Modal } from "../Modal/Modal";
 import { EditPostForm } from "../CreatePostForm/EditForm";
 import { CommentForm } from "../CreatePostForm/CommentForm";
-import api from "../../utils/Api";
 import { Button } from '../../components/Button/Button';
+import ContentLoader from "react-content-loader";
+import Spinner from "../Spinner";
 
-export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at}) => {
+export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at }) => {
     const currentUser = useContext(CurrentUserContext);
     // const onDeletePost = useContext();
     const { handleDeletePost, handleDeleteComment } = useContext(DeleteContext);
     const [modalActive, setModalActive] = useState(false);
     const [show, setShow] = useState(false);
     const [showCom, setShowCom] = useState(false);
-    const { handlePostLike } = useContext(AppContext);
+    // const { handlePostLike } = useContext(AppContext);
+    const { handlePostLike, isLoading } = useContext(AppContext);
     const navigate = useNavigate();
 
     function changeToggle() {
@@ -60,7 +62,7 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         console.log(_id);
         const confirmm = confirm("Удалить комментарий?")
         if (confirmm == true) {
-            handleDeleteComment( [_id], [idCom] );
+            handleDeleteComment([_id], [idCom]);
         }
         // navigate(-1);
     }
@@ -78,54 +80,59 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         }
     }
 
-    console.log(comments);
+    // console.log(comments);
 
     return (
         <>
-            <div className="post">
-                <div className="buttons">
-                    <Button type={() => navigate("/")}>back</Button>
-                    {checkUserPost() && <Button type={() => setModalActive(true)}>edit</Button>}
-                    <Modal active={modalActive} setActive={setModalActive}>
-                        <EditPostForm title={title} text={text} image={image} tags={tags} id={_id} setActive={setModalActive}/>
-                    </Modal>
-                </div>
+            {isLoading ? (<Spinner>
+                <path d="M 0 0 h 185.6 v 187 H 0 z M 0 203 h 186 v 14 H 0 z M 0 233 h 186 v 56 H 0 z M 0 305 h 186 v 24 H 0 z" />
+            </Spinner>) : (
 
-                <h1 className="card__name"><b>{title}</b></h1>
-                <p>{text}</p>
-                <span><img src={image} /></span>
-                <div className="autor"> <b>Author</b>:
-                    <span> {author?.name}</span>
-                </div>
-                <span className="commentss" onClick={changeToggleCom}> <b>comments:</b></span>
-                <div className="comments">
-                    {comments?.length !== 0 ? showCom ? comments?.map((com, i) => (
-                        <div key={i}>
-                            {com?.text}
-                            {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(deleteComment(com?._id))}/>}
-                            {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))}/>}
+                <div className="post">
+                    <div className="buttons">
+                        <Button type={() => navigate("/")}>back</Button>
+                        {checkUserPost() && <Button type={() => setModalActive(true)}>edit</Button>}
+                        <Modal active={modalActive} setActive={setModalActive}>
+                            <EditPostForm title={title} text={text} image={image} tags={tags} id={_id} setActive={setModalActive} />
+                        </Modal>
+                    </div>
+
+                    <h1 className="card__name"><b>{title}</b></h1>
+                    <p>{text}</p>
+                    <span><img src={image} /></span>
+                    <div className="autor"> <b>Author</b>:
+                        <span> {author?.name}</span>
+                    </div>
+                    <span className="commentss" onClick={changeToggleCom}> <b>comments:</b></span>
+                    <div className="comments">
+                        {comments?.length !== 0 ? showCom ? comments?.map((com, i) => (
+                            <div key={i}>
+                                {com?.text}
+                                {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(deleteComment(com?._id))} />}
+                                {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))} />}
+                            </div>
+                        )) : null : <>no comments</>}
+                    </div>
+                    <Button type={changeToggle}>add comment</Button>
+                    <div>
+                        {show ? <CommentForm id={_id} /> : null}
+                    </div>
+
+                    <div className="icons">
+                        <div className="card__sticky card__sticky_type_bottom-left">
+                            <button className="card__favorite">
+                                {checkUserPost() && <Delete onClick={deletePost} />}
+                            </button>
                         </div>
-                    )) : null : <>no comments</> }
-                </div>
-                <Button type={changeToggle}>add comment</Button>
-                <div>
-                    {show ? <CommentForm id={_id} /> : null}
-                </div>
-
-                <div className="icons">
-                    <div className="card__sticky card__sticky_type_bottom-left">
-                        <button className="card__favorite">
-                            {checkUserPost() && <Delete onClick={deletePost} />}
-                        </button>
-                    </div>
-                    <div className="card__sticky card__sticky_type_bottom-right">
-                        <button className="card__favorite" onClick={handleLikeClick}>
-                            <span className="likes">{likes?.length}</span>
-                            <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLike })} />
-                        </button>
+                        <div className="card__sticky card__sticky_type_bottom-right">
+                            <button className="card__favorite" onClick={handleLikeClick}>
+                                <span className="likes">{likes?.length}</span>
+                                <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLike })} />
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     );
 };

@@ -5,10 +5,10 @@ import cn from "classnames";
 import { Button } from '../../components/Button/Button';
 
 
-const click = (e) => {
-  e.preventDefault();
-  alert("Есть контакт");
-}
+// const click = (e) => {
+//   e.preventDefault();
+//   alert("Есть контакт");
+// }
 
 export const Info = () => {
   return (
