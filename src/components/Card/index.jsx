@@ -9,13 +9,14 @@ import { Link } from "react-router-dom";
 import { isLiked } from "../../utils/utils";
 import { AppContext } from "../../context/appContext";
 import ContentLoader from "react-content-loader";
+import SkeletonCard from "../Skeleton/SkeletonCard";
 
-export const Card = ({ _id, likes, title, image, tags, author, text, created_at, updated_at}) => {
+export const Card = ({ _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
 
     const currentUser = useContext(CurrentUserContext);
     // const onDeletePost = useContext(DeletePostContext);
-    const { handlePostLike, isLoading } = useContext(AppContext);
-    const { handleDeletePost} = useContext(DeleteContext);
+    const { handlePostLike, isLoading, pageLimit } = useContext(AppContext);
+    const { handleDeletePost } = useContext(DeleteContext);
 
 
     // console.log((created_at.slice(0, 10) + " " + created_at.slice(11, 16)));
@@ -47,49 +48,48 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
     return (
         <>
             {isLoading ? (<ContentLoader
-                viewBox="0 0 400 160"
-                height={160}
-                width={400}
-                backgroundColor="transparent"
+                speed={2}
+                width={260}
+                height={424}
+                viewBox="0 0 260 424"
+                backgroundColor="#b3b3b3"
+                foregroundColor="#655d5d"
             >
-                <circle cx="150" cy="86" r="8" />
-                <circle cx="194" cy="86" r="8" />
-                <circle cx="238" cy="86" r="8" />
+                <path d="M 0 0 h 185.6 v 187 H 0 z M 0 203 h 186 v 14 H 0 z M 0 233 h 186 v 56 H 0 z M 0 305 h 186 v 24 H 0 z" />
             </ContentLoader>) : (
-
-            <div className="card">
-                <Link to={`/posts/${_id}`} className="card__link">
-                    <p className="card__name"><b>{title}</b></p>
-                    {{ image } && <img src={image} className="card__image" alt="img" />}
-                </Link>
-                <div className="post_info">
-                    <h2><b>Tags</b>: {tags &&
-                        tags.filter(e => e !== " ").map((tag, i) => (
-                            <span
-                                key={i}
-                                className={cn("tag")}
-                            >
-                                {tags.length > 1 && tag !== " " ? tag + "." : tag}
-                            </span>
-                        ))}
-                    </h2>
-                    <b>Author</b>: <span className="email">{author?.name}</span>
-                    <div className="textPost">{text}</div>
-                    <p><b>create</b>: {time_created}</p>
-                    <p><b>updated</b>: {time_updated}</p>
+                <div className="card">
+                    <Link to={`/posts/${_id}`} className="card__link">
+                        <p className="card__name"><b>{title}</b></p>
+                        {{ image } && <img src={image} className="card__image" alt="img" />}
+                    </Link>
+                    <div className="post_info">
+                        <h2><b>Tags</b>: {tags &&
+                            tags.filter(e => e !== " ").map((tag, i) => (
+                                <span
+                                    key={i}
+                                    className={cn("tag")}
+                                >
+                                    {tags.length > 1 && tag !== " " ? tag + "." : tag}
+                                </span>
+                            ))}
+                        </h2>
+                        <b>Author</b>: <span className="email">{author?.name}</span>
+                        <div className="textPost">{text}</div>
+                        <p><b>create</b>: {time_created}</p>
+                        <p><b>updated</b>: {time_updated}</p>
+                    </div>
+                    <div className="card__sticky card__sticky_type_bottom-left">
+                        <button className="card__favorite">
+                            {checkUserPost() && <Delete onClick={deletePost} />}
+                        </button>
+                    </div>
+                    <div className="card__sticky card__sticky_type_bottom-right">
+                        <button className="card__favorite" onClick={handleLikeClick}>
+                            <span className="likes">{likes.length}</span>
+                            <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLike })} />
+                        </button>
+                    </div>
                 </div>
-                <div className="card__sticky card__sticky_type_bottom-left">
-                    <button className="card__favorite">
-                        {checkUserPost() && <Delete onClick={deletePost} />}
-                    </button>
-                </div>
-                <div className="card__sticky card__sticky_type_bottom-right">
-                    <button className="card__favorite" onClick={handleLikeClick}>
-                        <span className="likes">{likes.length}</span>
-                        <Save className={cn('card__favorite-icon', { 'card__favorite-icon_active': isLike })} />
-                    </button>
-                </div>
-            </div>
             )}
         </>
     );
