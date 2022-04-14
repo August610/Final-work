@@ -13,6 +13,7 @@ import { CreatePost } from "./pages/CreatePost/CreatePost";
 import { UpdatePostContext } from "./context/updatePostContext";
 import { AddCommentContext } from "./context/commentContext";
 import { Pagination } from 'antd';
+import { openNotification } from './components/Notification/index';
 
 
 export const AppAnt = () => {
@@ -35,10 +36,17 @@ export const AppAnt = () => {
         // console.log(postData);
       })
       .finally(() => {
-        setTimeout(() => setIsLoading(false), 400);
+        setTimeout(() => setIsLoading(false), 500);
       });
   }, [page, pageLimit])
 
+
+  const notifyResult = (result, text) => {
+    console.log(result.err);
+    return !result.err 
+      ? openNotification("success", text || result.message)
+      : openNotification("error", text || result.message)
+  }
 
   function handleUpdateUser(userUpdate) {
     api.setUserInfo(userUpdate).then((newUserData) => { setCurrentUser(newUserData) }
@@ -47,7 +55,8 @@ export const AppAnt = () => {
 
   function handleDeletePost({ _id }) {
     api.deletePost(_id)
-      .then(() => {
+      .then((responce) => {
+        notifyResult(responce, 'Вы успешно удалили пост!');
         const newCards = cards.filter((card) => card._id !== _id);
         setCards(newCards);
       });
@@ -66,7 +75,7 @@ export const AppAnt = () => {
   function handleCreateNewPost(data) {
     api.createNewPost(data)
       .then((newCard) => {
-        alert("Пост создан!")
+        notifyResult(newCard, 'Вы успешно создали пост!');
         cards.push(newCard);
         setCards(cards);
       });
@@ -75,9 +84,7 @@ export const AppAnt = () => {
   function handleUpdatePost(data, id) {
     api.updatePost(data, id)
       .then((newCard) => {
-        // cards.splice(cards.indexOf(cards.find(e => e.id === id)), 1, updatePost)
-        // setCards(cards);
-        alert("Пост обновлен!")
+        notifyResult(newCard, 'Вы успешно обновили пост!');
         const newCards = cards.map((c) => {
           return c._id === newCard._id ? newCard : c
         });
@@ -88,8 +95,7 @@ export const AppAnt = () => {
   function handleAddComment(data, id) {
     api.addComments(data, id)
       .then((newCard) => {
-        // cards.splice(cards.indexOf(cards.find(e => e.id === id)), 1, updatePost)
-        // setCards(cards);
+        notifyResult(newCard, 'Комментарий добавлен!');
         const newCards = cards.map((c) => {
           return c._id === newCard._id ? newCard : c
         });
@@ -100,6 +106,7 @@ export const AppAnt = () => {
   function handleDeleteComment(postId, commentId) {
     api.deleteComments(postId, commentId)
       .then((newCard) => {
+        notifyResult(newCard, 'Комментарий удален!');
         const newCards = cards.map((c) => {
           return c._id === newCard._id ? newCard : c
         });
@@ -116,10 +123,12 @@ export const AppAnt = () => {
     setPageLimit(pageSize)
   }
 
+  
+
   return (
     <AddCommentContext.Provider value={handleAddComment}>
       <UpdatePostContext.Provider value={handleUpdatePost}>
-        <AppContext.Provider value={{ handlePostLike, isLoading }}>
+        <AppContext.Provider value={{ handlePostLike, isLoading, pageLimit }}>
           <DeleteContext.Provider value={{ handleDeletePost, handleDeleteComment }}>
             <CurrentUserContext.Provider value={currentUser}>
               <Header user={currentUser} onUpdateUser={handleUpdateUser}>
@@ -139,7 +148,6 @@ export const AppAnt = () => {
                           loading={isLoading}
                         />
                         <Pagination current={page} onChange={setPagination} total={pageQty} onShowSizeChange={onShowSizeChange} showSizeChanger />
-
                       </>
                     }
                   />
@@ -162,7 +170,7 @@ export const AppAnt = () => {
                   <Route path="*" element={<h1>Страница не найдена</h1>} />
                 </Routes>
               </main>
-              <Footer>© You!</Footer>
+              <Footer></Footer>
             </CurrentUserContext.Provider>
           </DeleteContext.Provider>
         </AppContext.Provider>
