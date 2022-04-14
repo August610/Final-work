@@ -10,6 +10,7 @@ import { isLiked } from "../../utils/utils";
 import { AppContext } from "../../context/appContext";
 import ContentLoader from "react-content-loader";
 import SkeletonCard from "../Skeleton/SkeletonCard";
+import MyLoader from "../Skeleton/SkeletonCard";
 
 export const Card = ({ _id, likes, title, image, tags, author, text, created_at, updated_at }) => {
 
@@ -44,19 +45,21 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
 
     }
 
+//     speed={2}
+//     // width={360}
+//     // height={424}
+//     viewBox="0 0 260 424"
+//     backgroundColor="#b3b3b3"
+//     foregroundColor="#655d5d"
+// >
+//     <path d="M 0 0 h 185.6 v 187 H 0 z M 0 203 h 186 v 14 H 0 z M 0 233 h 186 v 56 H 0 z M 0 305 h 186 v 24 H 0 z" />
+//     <circle cx="180" cy="350" r="12
+
     // console.log(author);
     return (
         <>
-            {isLoading ? (<ContentLoader
-                speed={2}
-                width={260}
-                height={424}
-                viewBox="0 0 260 424"
-                backgroundColor="#b3b3b3"
-                foregroundColor="#655d5d"
-            >
-                <path d="M 0 0 h 185.6 v 187 H 0 z M 0 203 h 186 v 14 H 0 z M 0 233 h 186 v 56 H 0 z M 0 305 h 186 v 24 H 0 z" />
-            </ContentLoader>) : (
+            {isLoading ? (<MyLoader>
+            </MyLoader>) : (
                 <div className="card">
                     <Link to={`/posts/${_id}`} className="card__link">
                         <p className="card__name"><b>{title}</b></p>

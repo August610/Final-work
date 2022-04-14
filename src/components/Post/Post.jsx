@@ -15,8 +15,9 @@ import { Modal } from "../Modal/Modal";
 import { EditPostForm } from "../CreatePostForm/EditForm";
 import { CommentForm } from "../CreatePostForm/CommentForm";
 import { Button } from '../../components/Button/Button';
-import ContentLoader from "react-content-loader";
-import Spinner from "../Spinner";
+// import ContentLoader from "react-content-loader";
+// import Spinner from "../Spinner";
+import SkeletonPost from "../Skeleton/SrletonPost";
 
 export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at }) => {
     const currentUser = useContext(CurrentUserContext);
@@ -84,9 +85,8 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
 
     return (
         <>
-            {isLoading ? (<Spinner>
-                <path d="M 0 0 h 185.6 v 187 H 0 z M 0 203 h 186 v 14 H 0 z M 0 233 h 186 v 56 H 0 z M 0 305 h 186 v 24 H 0 z" />
-            </Spinner>) : (
+            {isLoading ? (<SkeletonPost>
+            </SkeletonPost>) : (
 
                 <div className="post">
                     <div className="buttons">
