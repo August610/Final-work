@@ -27,6 +27,7 @@ input {
     height: 50px;
     border-radius: 10px;  
     border: 1px solid #bdbdbd;
+    
 }
 
 .form_title {
@@ -35,6 +36,8 @@ input {
     text-align: center;
     border-radius: 10px;
     /* box-sizing: border-box; */
+    border: 1px solid #bdbdbd;
+    border: none;
 }
 
 .form_area{
@@ -101,7 +104,7 @@ input {
 	width: 50%;
 	height: 25px;
 	line-height: 22px;
-	border: 1px solid #bdbdbd;
+	/* border: 1px solid #bdbdbd; */
 	border-radius: 35px;
 	margin-top: 10px;
 	font-family: 'Montserrat', sans-serif;
@@ -112,13 +115,13 @@ input {
 	font-weight: 600;
 	color: #524f4e;
 	/* background: white; */
-	box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+	/* box-shadow: 0 8px 15px rgba(0, 0, 0, .1); */
 	transition: .3s;
 }
 
 .title:hover {
 	/* background: #2EE59D; */
-	background: rgb(219, 215, 215);
+	/* background: rgb(219, 215, 215); */
 	box-shadow: 0 15px 20px rgba(50, 53, 52, 0.4);
 	/* color: white; */
 	/* transform: translateY(-7px); */
