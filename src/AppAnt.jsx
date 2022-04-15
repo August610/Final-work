@@ -5,7 +5,7 @@ import { Logo } from "./components/Logo";
 import api from "./utils/Api";
 import { CurrentUserContext } from "./context/currentUserContext";
 import { DeleteContext } from "./context/deletePostContext";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { AllPosts } from "./pages/AllPostsPage/AllPostsPage";
 import { PagePost } from "./pages/PostPage/PostPage";
 import { AppContext } from "./context/appContext";
@@ -14,6 +14,7 @@ import { UpdatePostContext } from "./context/updatePostContext";
 import { AddCommentContext } from "./context/commentContext";
 import { Pagination } from 'antd';
 import { openNotification } from './components/Notification/index';
+import { Button } from "./components/Button/Button";
 
 
 export const AppAnt = () => {
@@ -43,7 +44,7 @@ export const AppAnt = () => {
 
   const notifyResult = (result, text) => {
     console.log(result.err);
-    return !result.err 
+    return !result.err
       ? openNotification("success", text || result.message)
       : openNotification("error", text || result.message)
   }
@@ -123,7 +124,7 @@ export const AppAnt = () => {
     setPageLimit(pageSize)
   }
 
-  
+
 
   return (
     <AddCommentContext.Provider value={handleAddComment}>
@@ -132,9 +133,8 @@ export const AppAnt = () => {
           <DeleteContext.Provider value={{ handleDeletePost, handleDeleteComment }}>
             <CurrentUserContext.Provider value={currentUser}>
               <Header user={currentUser} onUpdateUser={handleUpdateUser}>
-                {/* <Link to={"/"}> */}
                 <Logo />
-                {/* </Link> */}
+                <a href="https://github.com/August610/hw3"><Button>GitHub</Button></a>                                
               </Header>
               <main className="content container">
                 <Routes>

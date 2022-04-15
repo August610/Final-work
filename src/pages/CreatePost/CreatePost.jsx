@@ -15,7 +15,10 @@ export const CreatePost = ({ handleCreateNewPost }) => {
                 {/* <button href="#" className={s.button_back} onClick={() => navigate(-1)}>back</button> */}
                 <Button children={"back"} type={() => navigate("/")} />
             </div>
-            <CreatePostForm handleCreateNewPost={handleCreateNewPost} />
+            <div className={s.post}>
+                <CreatePostForm handleCreateNewPost={handleCreateNewPost} />
+            </div>
+
         </>
     );
 };

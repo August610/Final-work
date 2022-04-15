@@ -76,7 +76,6 @@ export function EditPostForm({title, text, image, tags, id, setActive}) {
                 onChange={handleChange}
             />
             <Button>Submit</Button>
-
         </form>
     )
 }
