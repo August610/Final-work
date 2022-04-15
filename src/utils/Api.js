@@ -9,8 +9,8 @@ class Api {
         this._token = `Bearer ${token}`;
     }
 
-    getPostsList(){
-        return fetch(`${this._baseUrl}/posts`, {
+    getPostsList(page = 1, limit = 100){
+        return fetch(`${this._baseUrl}/posts/paginate/?page=${page}&limit=${limit}`, {
             headers: {
                 authorization: this._token,
             },
@@ -25,8 +25,17 @@ class Api {
         }).then(onResponce)
     }
 
-    searchPosts(searchQuery){
-        return fetch(`${this._baseUrl}/posts/search?query=${searchQuery}`, {
+    deletePost(postId){
+        return fetch(`${this._baseUrl}/posts/${postId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: this._token,
+            },
+        }).then(onResponce)
+    }
+    
+    getPostById(postID){
+        return fetch(`${this._baseUrl}/posts/${postID}`, {
             headers: {
                 authorization: this._token,
             },
@@ -45,15 +54,80 @@ class Api {
         }).then(onResponce)
     }
 
-    changeLikeStatus(productId, isLike){
-        return fetch(`${this._baseUrl}/posts/likes/${productId}`, {
+    changeLikeStatus(postId, isLike){
+        return fetch(`${this._baseUrl}/posts/likes/${postId}`, {
             method: isLike ? "DELETE" : "PUT",
             headers: {
                 authorization: this._token,
             },
         }).then(onResponce)
     }
+
+    createNewPost(data){
+        return fetch(`${this._baseUrl}/posts`, {
+            method: "POST",
+            headers: {
+                authorization: this._token,
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                "title": data.title, 
+                "text": data.text,
+                "image": data?.image ? data?.image : "http://dummyimage.com/400x200.png/5fa2dd/ffffff", 
+                "tags": [...data?.tags]
+            })
+            
+        }).then(onResponce)
+    }
+
+    updatePost(data, postId){
+        return fetch(`${this._baseUrl}/posts/${postId}`, {
+            method: "PATCH",
+            headers: {
+                authorization: this._token,
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                "title": data.title, 
+                "text": data.text,
+	            "image": data.image, 
+                "tags": [data.tags]
+            })
+            
+        }).then(onResponce)
+    }
     
+    addComments(data, postId){
+        return fetch(`${this._baseUrl}/posts/comments/${postId}`, {
+            method: "POST",
+            headers: {
+                authorization: this._token,
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                ["text"]: data.text
+            })
+            
+        }).then(onResponce)
+    }
+
+    deleteComments(postId, commentId){
+        return fetch(`${this._baseUrl}/posts/comments/${postId}/${commentId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: this._token,
+
+            },
+        }).then(onResponce)
+    }
+
+    getComments(postId){
+        return fetch(`${this._baseUrl}/posts/comments/${postId}`, {
+            headers: {
+                authorization: this._token,
+            },
+        }).then(onResponce)
+    }
 }
 
 const config = {

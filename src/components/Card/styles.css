@@ -4,7 +4,23 @@
 	flex-direction: column;
 	align-items: flex-start;
 	padding: 10px;
+	/* border-radius: 10px; */
+	/* max-height: 800px; */
+	border: 1px solid #bdbdbd;
+}
+
+/* .cards{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 10px;
 	border-radius: 10px;
+	max-height: 800px;
+} */
+
+.textPost{
+	display: none;
 }
 
 .card:hover {
@@ -23,22 +39,10 @@
 }
 
 .card__image {
-	width: 100%;
+	width: 400px;
+	height: 200px;
 	object-fit: contain;
 	margin-bottom: 16px;
-}
-
-.card__old-price {
-	font-size: 12px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	font-weight: 600;
-	line-height: 14px;
-	text-decoration: line-through;
-	display: block;
-	height: 14px;
-
 }
 
 .card__wight {
@@ -50,6 +54,8 @@
 }
 
 .card__name {
+	/* border: 1px solid #bdbdbd; */
+	/* height: 70px; */
 	font-size: 16px;
 	line-height: 1.25;
 }
@@ -59,13 +65,13 @@
 	padding: 10px;
 }
 
-.card__sticky_type_top-left {
-	top: 0;
+.card__sticky_type_bottom-left {
+	bottom: -5px;
 	left: 0;
 }
 
 .card__sticky_type_bottom-right {
-	bottom: 0;
+	bottom: -5px;
 	right: 0;
 }
 
@@ -77,10 +83,24 @@
 	display: flex;
 }
 
+.card__favorite-icon_active {
+	fill: #ff0000;
+}
+
+.likes{
+	position: relative;
+	bottom: -5px;
+	right: 5px;
+}
+
 .card__cart {
 	margin-top: auto;
 }
 
+.post_info {
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
 
 
 .card__link {
@@ -114,13 +134,15 @@
 	font-weight: 800;
 	font-size: 16px;
 	line-height: 20px;
+	font-family: Comic Sans MS, Comic Sans, cursive;
 }
 
-.tag_type_new {
-	background-color: #03A9F4;
-	color: #FFFFFF;
+.image_avatar{
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	left: 65px;
 }
-.tag_type_sale {
-	background-color: #01A54E;
-	color: #FFFFFF;
+.skeleton{
+	position: absolute;
 }
