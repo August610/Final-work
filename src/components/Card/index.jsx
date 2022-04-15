@@ -58,8 +58,8 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
     // console.log(author);
     return (
         <>
-            {isLoading ? (<MyLoader>
-            </MyLoader>) : (
+            {isLoading ? (<SkeletonCard>
+            </SkeletonCard>) : (
                 <div className="card">
                     <Link to={`/posts/${_id}`} className="card__link">
                         <p className="card__name"><b>{title}</b></p>
