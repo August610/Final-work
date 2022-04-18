@@ -5,8 +5,9 @@
 	align-items: flex-start;
 	padding: 10px;
 	/* border-radius: 10px; */
-	/* max-height: 800px; */
+	max-height: 800px;
 	border: 1px solid #bdbdbd;
+	/* max-width: 400px; */
 }
 
 /* .cards{
@@ -40,9 +41,21 @@
 
 .card__image {
 	width: 400px;
-	height: 200px;
-	object-fit: contain;
-	margin-bottom: 16px;
+	height: 200px; 
+	/* position: relative; */
+	overflow: hidden;
+	/* margin-bottom: 16px; */
+	
+}
+
+.card__image img{
+	/* position: absolute; */
+  	/* top:50%; */
+  	/* left:50%; */
+  	/* transform:translate(-50%,-50%); */
+    width:400px;
+   	height:200px; 
+    object-fit:cover;
 }
 
 .card__wight {
@@ -54,10 +67,24 @@
 }
 
 .card__name {
-	/* border: 1px solid #bdbdbd; */
-	/* height: 70px; */
 	font-size: 16px;
 	line-height: 1.25;
+	overflow: hidden;
+	white-space: nowrap;
+	/* font-family: Comic Sans MS; */
+}
+
+.text{
+	font: bold;
+}
+
+.card__name p{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 250px;
+	position: relative;
+	
 }
 
 .card__sticky {

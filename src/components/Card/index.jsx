@@ -62,11 +62,14 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
             </SkeletonCard>) : (
                 <div className="card">
                     <Link to={`/posts/${_id}`} className="card__link">
-                        <p className="card__name"><b>{title}</b></p>
-                        {{ image } && <img src={image} className="card__image" alt="img" />}
+                        <div className="card__name"><p><b>{title}</b></p></div>
+                       
+                        {{ image } && 
+                            <div className="card__image"><img src={image} alt="img" /></div>
+                        }
                     </Link>
-                    <div className="post_info">
-                        <h2><b>Tags</b>: {tags &&
+                    <div className="post_info text">
+                        <h2>Tags: {tags &&
                             tags.filter(e => e !== " ").map((tag, i) => (
                                 <span
                                     key={i}
@@ -76,10 +79,10 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                                 </span>
                             ))}
                         </h2>
-                        <b>Author</b>: <span className="email">{author?.name}</span>
+                        <b>Author</b>: <span className="email text">{author?.name}</span>
                         <div className="textPost">{text}</div>
-                        <p><b>create</b>: {time_created}</p>
-                        <p><b>updated</b>: {time_updated}</p>
+                        <div>create: {time_created}</div>
+                        <div>updated: {time_updated}</div>
                     </div>
                     <div className="card__sticky card__sticky_type_bottom-left">
                         <button className="card__favorite">
