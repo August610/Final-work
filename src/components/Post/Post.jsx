@@ -18,6 +18,9 @@ import { Button } from '../../components/Button/Button';
 // import ContentLoader from "react-content-loader";
 // import Spinner from "../Spinner";
 import SkeletonPost from "../Skeleton/SrletonPost";
+import { Comment, Tooltip, List } from 'antd';
+import moment from 'moment';
+
 
 export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at }) => {
     const currentUser = useContext(CurrentUserContext);
@@ -29,7 +32,6 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
     // const { handlePostLike } = useContext(AppContext);
     const { handlePostLike, isLoading } = useContext(AppContext);
     const navigate = useNavigate();
-
     function changeToggle() {
         if (!show) {
             setShow(true)
@@ -81,7 +83,8 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         }
     }
 
-    // console.log(comments);
+    const date = new Date(created_at)
+    console.log(date.getHours());
 
     return (
         <>
@@ -103,15 +106,39 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                     <div className="autor"> <b>Author</b>:
                         <span> {author?.name}</span>
                     </div>
-                    <span className="commentss" onClick={changeToggleCom}> <b>comments:</b></span>
+                    <span className="commentss" onClick={changeToggleCom}><b><button className="com_btn">comments:</button></b></span>
                     <div className="comments">
-                        {comments?.length !== 0 ? showCom ? comments?.map((com, i) => (
-                            <div key={i}>
-                                {com?.text}
-                                {com?.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(deleteComment(com?._id))} />}
-                                {com?.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))} />}
-                            </div>
-                        )) : null : <>no comments</>}
+                        {comments?.length !== 0 ? showCom ? (
+                            <List
+                                className="comment-list"
+                                header={`${comments.length} comments`}
+                                itemLayout="horizontal"
+                                dataSource={comments}
+                                renderItem={item => (
+                                    <li>
+                                        <Comment
+                                            actions={item.actions}
+                                            // author={item.author}
+                                            // avatar={item.avatar}
+                                            content={item.text}
+                                            
+                                            datetime={item.created_at?.slice(0, 10) + " " + created_at?.slice(11, 16)}
+
+
+                                        //     <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+                                        //     <span>{moment().subtract(1, 'days').fromNow()}</span>
+                                        // </Tooltip>
+
+                                        // <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+                                        //     <span>{moment().subtract(2, 'days').fromNow()}</span>
+                                        // </Tooltip>
+                                        />
+                                        {item.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(deleteComment(com?._id))} />}
+                                            {item.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))} />}
+                                    </li>
+                                )}
+                            />
+                        ) : null : <>no comments</>}
                     </div>
                     <Button type={changeToggle}>add comment</Button>
                     <div>
@@ -136,3 +163,4 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         </>
     );
 };
+

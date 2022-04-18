@@ -18,6 +18,39 @@
 	box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.16), 0px 0.5px 2px rgba(96, 97, 112, 0.24);
 }
 
+.com_btn{
+	/* text-decoration: none;
+	display: inline-block; */
+	/* width: 100%; */
+	/* height: 25px; */
+	/* line-height: 22px; */
+	/* border: 1px solid #bdbdbd; */
+	border: none;
+	/* border-radius: 35px; */
+	margin-top: 10px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: 3px;
+	font-weight: 600;
+	color: #524f4e;
+	background: white;
+	/* box-shadow: 0 8px 15px rgba(0, 0, 0, .1); */
+	transition: .3s;
+	cursor: pointer;
+}
+
+.com_btn:hover {
+	/* background: #2EE59D; */
+	/* background: rgb(219, 215, 215); */
+	/* box-shadow: 0 15px 20px rgba(50, 53, 52, 0.4); */
+	/* color: white; */
+	transform: translateY(-7px);
+}
+
+
+
 .card__desc {
 	font-size: 16px;
 	padding-top: 14px;
