@@ -128,6 +128,15 @@ class Api {
             },
         }).then(onResponce)
     }
+
+    getUserById(userID){
+        return fetch(`${this._baseUrl}/users/${userID}`, {
+            headers: {
+                authorization: this._token,
+            },
+        }).then(onResponce)
+    }
+
 }
 
 const config = {

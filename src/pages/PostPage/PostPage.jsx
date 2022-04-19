@@ -16,7 +16,9 @@ export const PagePost = ({ cards }) => {
     return api.getPostById(postID)
   }, [postID, cards]);
 
+  // console.log(cards);
   const { data: post, loading, error } = useApi(handler);
+  console.log(post);
   return (
 
   // useEffect(() => {

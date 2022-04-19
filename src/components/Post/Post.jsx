@@ -20,6 +20,7 @@ import { Button } from '../../components/Button/Button';
 import SkeletonPost from "../Skeleton/SrletonPost";
 import { Comment, Tooltip, List } from 'antd';
 import moment from 'moment';
+import api from "../../utils/Api";
 
 
 export const Post = ({ _id, likes, title, image, tags, author, avatar, text, comments, created_at }) => {
@@ -29,6 +30,7 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
     const [modalActive, setModalActive] = useState(false);
     const [show, setShow] = useState(false);
     const [showCom, setShowCom] = useState(false);
+    const [user, setUser] = useState([]);
     // const { handlePostLike } = useContext(AppContext);
     const { handlePostLike, isLoading } = useContext(AppContext);
     const navigate = useNavigate();
@@ -83,8 +85,19 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
         }
     }
 
-    const date = new Date(created_at)
-    console.log(date.getHours());
+    
+    function getUsers(userId) {
+        api.getUserById(userId)
+        .then((dataUser) => {
+            // console.log(dataUser.name);
+            setUser(dataUser.name)
+        })
+    }
+
+    // getUsers('622b6ffc09b12f80f4c10bc0')
+
+    // const date = new Date(created_at)
+    console.log(comments);
 
     return (
         <>
@@ -117,24 +130,14 @@ export const Post = ({ _id, likes, title, image, tags, author, avatar, text, com
                                 renderItem={item => (
                                     <li>
                                         <Comment
-                                            actions={item.actions}
-                                            // author={item.author}
+                                            // actions={getUsers(item.author)}
+                                            author={item.author.name}
                                             // avatar={item.avatar}
-                                            content={item.text}
-                                            
+                                            content={item.text} 
                                             datetime={item.created_at?.slice(0, 10) + " " + created_at?.slice(11, 16)}
-
-
-                                        //     <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                                        //     <span>{moment().subtract(1, 'days').fromNow()}</span>
-                                        // </Tooltip>
-
-                                        // <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                                        //     <span>{moment().subtract(2, 'days').fromNow()}</span>
-                                        // </Tooltip>
                                         />
-                                        {item.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(deleteComment(com?._id))} />}
-                                            {item.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))} />}
+                                        {/* {item.author === currentUser?._id && <DeleteCom className="delete_iconn" onClick={(e) => e.stopPropagation(deleteComment(com?._id))} />}
+                                        {item.author === currentUser?._id && <Edit className="edit_iconn" onClick={(e) => e.stopPropagation(alert("Изменение"))} />} */}
                                     </li>
                                 )}
                             />

@@ -57,7 +57,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                             <div className="card__image"><img src={image} alt="img" /></div>
                         }
                     </Link>
-                    <div className="post_info text">
+                    <div className="post_info">
                         <h2>Tags: {tags &&
                             tags.filter(e => e !== " ").map((tag, i) => (
                                 <span
@@ -68,7 +68,7 @@ export const Card = ({ _id, likes, title, image, tags, author, text, created_at,
                                 </span>
                             ))}
                         </h2>
-                        <b>Author</b>: <span className="email text">{author?.name}</span>
+                        <b>Author</b>: <span className="email">{author?.name}</span>
                         <div className="textPost">{text}</div>
                         <div>create: {time_created}</div>
                         <div>updated: {time_updated}</div>
